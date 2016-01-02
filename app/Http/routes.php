@@ -70,6 +70,21 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
             'uses'  => 'HomeController@index',
             'as'    => 'admin.home.index'
         ]);
+
+        Route::group(['prefix' => 'exam'], function() {
+
+            get('/', [
+                'uses'  => 'ExamController@index',
+                'as'    => 'admin.exam.index'
+            ]);
+
+            get('/create', [
+                'uses'  => 'ExamController@create',
+                'as'    => 'admin.exam.create'
+            ]);
+
+        });
+
     });
 
 });
