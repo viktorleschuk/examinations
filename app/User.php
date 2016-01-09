@@ -64,4 +64,10 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->getAttribute('first_name') . ' ' . $this->getAttribute('last_name');
     }
+
+    public static function getParticipants()
+    {
+        return self::select()
+            ->where('role', self::ROLE_PARTICIPANT)->get();
+    }
 }

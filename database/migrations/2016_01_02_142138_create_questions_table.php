@@ -18,6 +18,7 @@ class CreateQuestionsTable extends Migration
             $table->text('title');
             $table->decimal('weight');
             $table->smallInteger('type');
+            $table->timestamps();
         });
 
         Schema::table('questions', function (Blueprint $table) {

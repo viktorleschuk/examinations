@@ -8,18 +8,18 @@
                 <div class="row">
 
                     <div class="col-lg-3">
-                        @include('admin.partials.menu')
+                        @include('admin.exam.partials.exam_menu', ['exam' => $exam])
                     </div>
 
                     <div class="col-lg-9">
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Panel head ...
+                                Setting
                             </div>
-                        	<div class="panel-body">
-                        	   Panel body ...
-                        	</div>
+                            <div class="panel-body">
+                                Panel body ...
+                            </div>
                         </div>
 
                     </div>

@@ -1,4 +1,3 @@
-
 INSERT INTO `countries` VALUES (null, 'AF', 'Afghanistan');
 INSERT INTO `countries` VALUES (null, 'AL', 'Albania');
 INSERT INTO `countries` VALUES (null, 'DZ', 'Algeria');

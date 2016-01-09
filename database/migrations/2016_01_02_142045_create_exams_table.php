@@ -18,6 +18,10 @@ class CreateExamsTable extends Migration
             $table->string('description');
             $table->smallInteger('level');
             $table->integer('time');
+            $table->boolean('is_public')
+                ->default(false);
+
+            $table->timestamps();
         });
     }
 
