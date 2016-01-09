@@ -12,6 +12,10 @@ use App\Models\Participant;
 
 class HomeController extends Controller
 {
+    public function __construct()
+    {
+        view()->share('active', null);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +29,8 @@ class HomeController extends Controller
     public function exams()
     {
         return view('admin.exam.index', [
-            'exams' => Exam::all()
+            'exams' => Exam::all(),
+            'active'    => 'exams'
         ]);
     }
 
@@ -34,7 +39,8 @@ class HomeController extends Controller
         $participants = Participant::all();
 
         return view('admin.home.participants', [
-            'participants'  => $participants
+            'participants'  => $participants,
+            'active'        => 'participants'
         ]);
     }
 }

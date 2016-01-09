@@ -15,10 +15,17 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Panel head ...
+                                Home
                             </div>
                         	<div class="panel-body">
-                        	   Panel body ...
+                                <ul class="nav nav-pills">
+                                    <li class="active">
+                                        <a href="#"> <span class="badge pull-right">42</span> Home</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"> <span class="badge pull-right">16</span> More</a>
+                                    </li>
+                                </ul>
                         	</div>
                         </div>
 

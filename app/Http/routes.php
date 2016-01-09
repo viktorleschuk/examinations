@@ -84,12 +84,12 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
         Route::group(['prefix' => 'exam', 'namespace' => 'Exam'], function() {
 
             get('/create', [
-                'uses'  => 'IndexController@create',
+                'uses'  => 'CreateController@create',
                 'as'    => 'admin.exam.create'
             ]);
 
             post('/create', [
-               'uses'   => 'IndexController@postCreate',
+               'uses'   => 'CreateController@postCreate',
                 'as'    => 'admin.exam.postCreate'
             ]);
 

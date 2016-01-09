@@ -9,8 +9,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Exam;
 
-class IndexController extends Controller
+class CreateController extends Controller
 {
+    public function __construct()
+    {
+        view()->share('active', 'create');
+    }
+
     public function create()
     {
         return view('admin.exam.create.exam');
