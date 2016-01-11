@@ -32,20 +32,21 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($participants as $participant)
 
-                                        <tr>
-                                            <td>{{ $participant->getKey() }}</td>
-                                            <td>{{ $participant->user->getAttribute('first_name') }}</td>
-                                            <td>{{ $participant->user->getAttribute('last_name') }}</td>
-                                            <td>{{ $participant->getAttribute('country_id') }}</td>
-                                            <td>{{ $participant->getAttribute('city') }}</td>
-                                            <td>{{ $participant->getAttribute('phone_number') }}</td>
-                                            <td>{{ $participant->getAttribute('skype_name') }}</td>
-                                            <td>..</td>
-                                        </tr>
+                                        @foreach($participants as $participant)
 
-                                    @endforeach
+                                            <tr>
+                                                <td>{{ $participant->getKey() }}</td>
+                                                <td>{{ $participant->user->getAttribute('first_name') }}</td>
+                                                <td>{{ $participant->user->getAttribute('last_name') }}</td>
+                                                <td>{{ $participant->getAttribute('country_id') }}</td>
+                                                <td>{{ $participant->getAttribute('city') }}</td>
+                                                <td>{{ $participant->getAttribute('phone_number') }}</td>
+                                                <td>{{ $participant->getAttribute('skype_name') }}</td>
+                                                <td>..</td>
+                                            </tr>
+
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

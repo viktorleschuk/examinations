@@ -8,7 +8,7 @@
                 <div class="row">
 
                     <div class="col-lg-3">
-                        @include('admin.exam.partials.menu')
+                        @include('admin.partials.menu')
                     </div>
 
                     <div class="col-lg-9">
@@ -34,7 +34,7 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="description">Description</label>
                                         <div class="col-md-6">
-                                            <textarea name="description" id="description" class="form-control" rows="5">{{ old('description') }}</textarea>
+                                            <textarea name="description" id="description" style="resize: none" class="form-control" rows="5">{{ old('description') }}</textarea>
                                         </div>
                                     </div>
 
@@ -46,7 +46,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="time">Level</label>
+                                        <label class="col-md-4 control-label" for="level">Level</label>
                                         <div class="col-md-6">
                                             <select name="level" id="level" class="form-control">
                                                 <option value="easy">Easy</option>

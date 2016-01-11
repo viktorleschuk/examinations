@@ -6,17 +6,15 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Exam;
 
-class InfoController extends Controller
+class ParticipantsController extends Controller
 {
     public function __construct()
     {
-        view()->share('active', 'info');
+        view()->share('active', 'participants');
     }
 
     public function index(Exam $exam)
     {
-        return view('admin.exam.info', [
-            'exam'  => $exam
-        ]);
+        return 'Under construction';
     }
 }

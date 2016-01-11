@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Models\Exam;
 
-class HomeController extends Controller
+class IndexController extends Controller
 {
     public function __construct()
     {
-        view()->share('active', null);
+        view()->share('active', 'exams');
     }
     /**
      * Display a listing of the resource.
@@ -18,6 +19,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.home.index');
+        return view('admin.exam.index', [
+            'exams' => Exam::all()
+        ]);
     }
+
 }

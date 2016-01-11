@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Admin\Exam;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
-use App\Models\Exam;
 use App\Models\Question;
+use App\Http\Requests;
+use App\Models\Exam;
 
 
 class QuestionController extends Controller
@@ -42,9 +41,9 @@ class QuestionController extends Controller
      * @param Exam $exam
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function createQuestion(Exam $exam)
+    public function create(Exam $exam)
     {
-        return view('admin.exam.create.question', [
+        return view('admin.exam.question.create', [
             'exam'  => $exam
         ]);
     }
@@ -54,18 +53,9 @@ class QuestionController extends Controller
      * @param Exam $exam
      * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function postCreateQuestion(Request $request, Exam $exam)
+    public function postCreate(Request $request, Exam $exam)
     {
-        $validator = Validator::make($request->all(), $this->questionRules);
-
-        if ($validator->fails()) {
-
-            return redirect()->back()
-                ->withInput($request->input())
-                ->withErrors($validator->messages());
-        }
-
-
+        $this->validate($request, $this->questionRules);
 
         Question::create([
             'exam_id'   => $exam->getKey(),
@@ -79,6 +69,11 @@ class QuestionController extends Controller
             ->with('success', 'Question successfully added');
     }
 
+    /**
+     * @param Exam $exam
+     * @param Question $question
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit(Exam $exam, Question $question)
     {
         return view('admin.exam.question.edit', [
@@ -87,6 +82,12 @@ class QuestionController extends Controller
         ]);
     }
 
+    /**
+     * @param Exam $exam
+     * @param Question $question
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
     public function delete(Exam $exam, Question $question)
     {
         $question->delete();
@@ -95,16 +96,15 @@ class QuestionController extends Controller
             ->with('message', 'Question successfully deleted');
     }
 
-    public function postEdit(Exam $exam, Question $question, Request $request)
+    /**
+     * @param Exam $exam
+     * @param Question $question
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function update(Exam $exam, Question $question, Request $request)
     {
-        $validator = Validator::make($request->all(), $this->questionRules);
-
-        if ($validator->fails()) {
-
-            return redirect()->back()
-                ->withInput($request->input())
-                ->withErrors($validator->messages());
-        }
+        $this->validate($request, $this->questionRules);
 
         $question->update([
             'title'     => $request->get('title'),
@@ -112,6 +112,19 @@ class QuestionController extends Controller
         ]);
 //TODO
         return redirect()->route('admin.exam.questions', ['exam' => $exam])
-            ->with('message', 'Successfully editing');
+            ->with('success', 'Successfully editing');
+    }
+
+    /**
+     * @param Exam $exam
+     * @param Question $question
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function view(Exam $exam, Question $question)
+    {
+        return view('admin.exam.question.view', [
+            'exam'      => $exam,
+            'question'  => $question
+        ]);
     }
 }

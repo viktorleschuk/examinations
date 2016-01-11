@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 
-class HomeController extends Controller
+class PendingExamsController extends Controller
 {
     public function __construct()
     {
-        view()->share('active', null);
+        view()->share('active', 'pending');
     }
     /**
      * Display a listing of the resource.
@@ -18,6 +18,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.home.index');
+        return 'Under construction';
     }
+
 }

@@ -72,12 +72,12 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
         ]);
 
         get('/participants', [
-            'uses'  => 'HomeController@participants',
+            'uses'  => 'ParticipantsController@index',
             'as'    => 'admin.participants.list'
         ]);
 
         get('/exams', [
-            'uses'  => 'HomeController@exams',
+            'uses'  => 'IndexController@index',
             'as'    => 'admin.exams.index'
         ]);
 
@@ -94,8 +94,13 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
             ]);
 
             get('/{exam}', [
-               'uses'   => 'InfoController@index',
-                'as'    => 'admin.exam.info'
+               'uses'   => 'ViewController@view',
+                'as'    => 'admin.exam.view'
+            ]);
+
+            get('/{exam}/participants', [
+               'uses'   => 'ParticipantsController@index',
+                'as'    => 'admin.exam.participants'
             ]);
 
             get('/{exam}/questions', [
@@ -104,12 +109,12 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
             ]);
 
             get('/{exam}/question/create', [
-                'uses'  =>  'QuestionController@createQuestion',
+                'uses'  =>  'QuestionController@create',
                 'as'    =>  'admin.exam.question.create'
             ]);
 
             post('/{exam}/question/create', [
-                'uses'  =>  'QuestionController@postCreateQuestion',
+                'uses'  =>  'QuestionController@postCreate',
                 'as'    =>  'admin.exam.question.postCreate'
             ]);
 
@@ -118,14 +123,29 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
                 'as'    =>  'admin.exam.question.edit'
             ]);
 
-            post('/{exam}/question/{question}/edit', [
-                'uses'  =>  'QuestionController@postEdit',
-                'as'    =>  'admin.exam.question.postEdit'
+            post('/{exam}/question/{question}/update', [
+                'uses'  =>  'QuestionController@update',
+                'as'    =>  'admin.exam.question.update'
             ]);
 
             get('/{exam}/question/{question}/delete', [
                 'uses'  =>  'QuestionController@delete',
                 'as'    =>  'admin.exam.question.delete'
+            ]);
+
+            get('/{exam}/question/{question}/answer/new', [
+                'uses'  =>  'AnswerController@create',
+                'as'    =>  'admin.exam.question.answer.create'
+            ]);
+
+            post('/{exam}/question/{question}/answer/create', [
+                'uses'  =>  'AnswerController@postCreate',
+                'as'    =>  'admin.exam.question.answer.postCreate'
+            ]);
+
+            get('/{exam}/question/{question}/view', [
+                'uses'  => 'QuestionController@view',
+                'as'    => 'admin.exam.question.view'
             ]);
 
             get('/{exam}/settings', [

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin\Exam;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+use App\Http\Requests;
 use App\Models\Exam;
 
 class CreateController extends Controller
@@ -18,7 +18,7 @@ class CreateController extends Controller
 
     public function create()
     {
-        return view('admin.exam.create.exam');
+        return view('admin.exam.create');
     }
 
     public function postCreate(Request $request)

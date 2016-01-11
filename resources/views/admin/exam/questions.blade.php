@@ -8,7 +8,7 @@
                 <div class="row">
 
                     <div class="col-lg-3">
-                        @include('admin.exam.partials.exam_menu', ['exam' => $exam])
+                        @include('admin.exam.partials.exam-menu', ['exam' => $exam])
                     </div>
 
                     <div class="col-lg-9">
@@ -22,6 +22,8 @@
                             </div>
                             <div class="panel-body">
 
+                                @include('admin.partials.success')
+
                                 @if(count($exam->questions) > 0)
 
                                     <?php $counter = 1 ?>
@@ -31,7 +33,7 @@
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h3 class="panel-title">
-                                                    Question {{ $counter++ }}
+                                                    <a href="{{ route('admin.exam.question.view', ['exam' => $exam, 'question' => $question]) }}">Question {{ $counter++ }}</a>
                                                     <a class="pull-right" href="{{ route('admin.exam.question.delete', ['exam' => $exam, 'question' => $question]) }}">
                                                         <i class="fa fa-times"></i>
                                                     </a>
@@ -53,7 +55,44 @@
 
                                                 <dl class="dl-horizontal">
                                                     <dt>Type:</dt>
-                                                    <dd>{{ App\Models\Question::getTypeNameByIndex($question->getAttribute('type')) }}</dd>
+                                                    <dd>{{ App\Models\Question::getTypeNameByIndex($question->getAttribute('type')) }}
+                                                        @if($question->getAttribute('type') == App\Models\Question::TYPE_VARIOUS)
+
+                                                            @if(count($question->answers) > 0)
+                                                                <table class="table table-condensed">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Various</th>
+                                                                            <th>Is correct</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+
+                                                                        @foreach($question->answers as $various)
+
+                                                                            <tr>
+                                                                                <td>{{ $various->getAttribute('title') }}</td>
+                                                                                <td>@if($various->getAttribute('is_correct'))
+                                                                                        <i class="fa fa-check"></i>
+                                                                                    @else
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    @endif
+                                                                                </td>
+                                                                            </tr>
+
+                                                                        @endforeach
+                                                                    </tbody>
+                                                                </table>
+                                                            @else
+                                                                <br><br><strong>Info!</strong> In the question, there are no various answer
+                                                            @endif
+
+                                                                <a title="Add new various answer" href="{{ route('admin.exam.question.answer.create', ['exam'  => $exam, 'question' => $question]) }}" class="btn btn-default btn-xs pull-right" style="margin-right: 5px">
+                                                                    + New answer various
+                                                                </a>
+
+                                                        @endif
+                                                    </dd>
                                                 </dl>
                                             </div>
                                         </div>

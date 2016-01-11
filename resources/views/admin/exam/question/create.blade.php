@@ -8,7 +8,7 @@
                 <div class="row">
 
                     <div class="col-lg-3">
-                        @include('admin.exam.partials.exam_menu', ['exam' => $exam])
+                        @include('admin.exam.partials.exam-menu', ['exam' => $exam])
                     </div>
 
                     <div class="col-lg-9">

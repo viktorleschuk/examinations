@@ -8,7 +8,7 @@
                 <div class="row">
 
                     <div class="col-lg-3">
-                        @include('admin.exam.partials.exam_menu', ['exam' => $exam])
+                        @include('admin.exam.partials.exam-menu', ['exam' => $exam])
                     </div>
 
                     <div class="col-lg-9">
@@ -19,20 +19,22 @@
                             </div>
                             <div class="panel-body">
 
-                                <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.exam.question.postEdit', ['exam' => $exam, 'question'  =>  $question]) }}">
+                                @include('admin.partials.errors')
+
+                                <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.exam.question.update', ['exam' => $exam, 'question'  =>  $question]) }}">
                                     {!! csrf_field() !!}
 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="title">Title</label>
                                         <div class="col-md-6">
-                                            <textarea name="title" id="title" class="form-control" style="resize: vertical" rows="5">{{ $question->getAttribute('title') }}</textarea>
+                                            <textarea name="title" id="title" class="form-control" style="resize: vertical" rows="5">{{ old('title', $question->getAttribute('title')) }}</textarea>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="weight">Weight</label>
                                         <div class="col-md-6">
-                                            <input type="number" min="0" class="form-control" name="weight" id="weight" value="{{ $question->getAttribute('weight') }}" >
+                                            <input type="number" min="0" class="form-control" name="weight" id="weight" value="{{ old('weight', $question->getAttribute('weight')) }}" >
                                         </div>
                                     </div>
 
