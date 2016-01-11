@@ -18,6 +18,9 @@
                                 Home
                             </div>
                         	<div class="panel-body">
+
+                                @include('admin.partials.success')
+
                                 <ul class="nav nav-pills">
                                     <li class="active">
                                         <a href="#"> <span class="badge pull-right">42</span> Home</a>

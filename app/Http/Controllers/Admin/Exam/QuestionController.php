@@ -93,7 +93,7 @@ class QuestionController extends Controller
         $question->delete();
 
         return redirect()->back()
-            ->with('message', 'Question successfully deleted');
+            ->with('success', 'Question successfully deleted');
     }
 
     /**

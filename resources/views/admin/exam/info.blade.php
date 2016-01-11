@@ -18,6 +18,9 @@
                                 Info
                             </div>
                             <div class="panel-body">
+
+                                @include('admin.partials.success')
+
                                 <dl class="dl-horizontal">
                                     <dt>Exam name</dt>
                                     <dd>{{ $exam->getAttribute('name') }}</dd>

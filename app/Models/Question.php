@@ -72,4 +72,23 @@ class Question extends Model
                 return null;
         }
     }
+
+    /**
+     * @return bool
+     */
+    public function validate()
+    {
+        if($this->getAttribute('type') == self::TYPE_VARIOUS) {
+
+            return count($this->answers) >= 2;
+        }
+
+        return true;
+    }
+
+    public function hasCorrectAnswer()
+    {
+        return $this->hasOne('App\Models\Answer')
+            ->where('is_correct' === true);
+    }
 }

@@ -152,6 +152,26 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
                 'uses'  =>  'SettingController@index',
                 'as'    =>  'admin.exam.setting'
             ]);
+
+            get('/{exam}/settings/delete', [
+                'uses'  =>  'SettingController@delete',
+                'as'    =>  'admin.exam.delete'
+            ]);
+
+            get('/{exam}/settings/publish', [
+                'uses'  => 'SettingController@publish',
+                'as'    => 'admin.exam.publish'
+            ]);
+
+            get('/{exam}/settings/publishCancel', [
+                'uses'  => 'SettingController@publishCancel',
+                'as'    => 'admin.exam.publishCancel'
+            ]);
+
+            post('/{exam}/settings/update', [
+               'uses'   => 'SettingController@update',
+                'as'    => 'admin.exam.update'
+            ]);
         });
 
     });
