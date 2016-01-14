@@ -16,7 +16,7 @@ class CreateAnswersTable extends Migration
 
             $table->increments('id');
             $table->integer('question_id')->unsigned();
-            $table->string('title');
+            $table->text('title');
             $table->boolean('is_correct');
             $table->timestamps();
         });

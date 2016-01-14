@@ -38,7 +38,7 @@ class Exam extends Model
      * @param $name
      * @return int
      */
-    public static function getLevelIndexByName($name)
+    public static function getLevelByName($name)
     {
         switch($name) {
             case 'easy':

@@ -56,6 +56,9 @@
                                                 <dl class="dl-horizontal">
                                                     <dt>Type:</dt>
                                                     <dd>{{ App\Models\Question::getTypeNameByIndex($question->getAttribute('type')) }}
+
+                                                        <hr />
+
                                                         @if($question->getAttribute('type') == App\Models\Question::TYPE_VARIOUS)
 
                                                             @if(count($question->answers) > 0)
@@ -63,7 +66,7 @@
                                                                     <thead>
                                                                         <tr>
                                                                             <th>Various</th>
-                                                                            <th>Is correct</th>
+                                                                            <th width="15%" align="center">Correct</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -72,7 +75,7 @@
 
                                                                             <tr>
                                                                                 <td>{{ $various->getAttribute('title') }}</td>
-                                                                                <td>@if($various->getAttribute('is_correct'))
+                                                                                <td align="center">@if($various->getAttribute('is_correct'))
                                                                                         <i class="fa fa-check"></i>
                                                                                     @else
                                                                                         <i class="fa fa-times"></i>
