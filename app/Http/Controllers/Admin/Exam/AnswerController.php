@@ -30,8 +30,14 @@ class AnswerController extends Controller
     public function postCreate(Exam $exam, Question $question, Request $request)
     {
         $this->validate($request, [
-            'title' => 'required'
+            'title' => 'required|max:255'
         ]);
+
+        if ($question->answers()->getQuery()->where('is_correct', true)->count() != 0 && ($request->get('is_correct') == true)) {
+
+            return redirect()->back()
+                ->withErrors('Correct answer already exists! (question can have, 1 correct answer)');
+        }
 
         Answer::create([
             'question_id'   => $question->getKey(),

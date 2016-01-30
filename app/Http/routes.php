@@ -28,15 +28,55 @@ Route::group(['namespace'   => 'Participant'], function() {
 
     Route::group(['middleware'  => 'auth.participant'], function() {
 
-        get('/home', [
-            'uses'  => 'HomeController@index',
-            'as'    => 'participant.home.index'
-        ]);
-
         get('/logout', [
             'uses'  => 'AuthController@getLogout',
             'as'    => 'participant.auth.getLogout'
         ]);
+
+        get('/exams', [
+            'uses'  => 'IndexController@index',
+            'as'    => 'participant.home.index'
+        ]);
+
+        get('/no-js', [function() {
+            return view('errors.no-js');
+        },
+        'as'  => 'participant.errors.no-js'
+        ]);
+
+        Route::group(['prefix' => 'exam', 'namespace' => 'Exam'], function() {
+
+
+            get('/view/{exam}', [
+                'uses'  => 'ViewController@index',
+                'as'    => 'participant.exam.view'
+            ]);
+
+            post('/start/{exam}', [
+                'uses'  => 'ProcessController@start',
+                'as'    => 'participant.exam.start'
+            ]);
+
+            get('/{exam}/getQuestion', [
+                'uses'  => 'ProcessController@uniqueQuestion',
+                'as'    => 'participant.exam.question'
+            ]);
+
+            get('/{exam}/q/{question}', [
+                'uses'  => 'ProcessController@getQuestion',
+                'as'    => 'participant.exam.process.question'
+            ]);
+
+            post('/{exam}/q/{question}/next', [
+                'uses'  => 'ProcessController@handleQuestion',
+                'as'    => 'participant.exam.handleQuestion'
+            ]);
+
+            get('/{exam}/time-over', [
+                'uses'  => 'ProcessController@timeOver',
+                'as'    => 'participant.exam.timeOver'
+            ]);
+        });
     });
 
 });

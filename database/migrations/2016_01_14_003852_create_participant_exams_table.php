@@ -24,7 +24,9 @@ class CreateParticipantExamsTable extends Migration
                 ->nullable();
             $table->integer('elapsed_time')
                 ->nullable();
+            $table->smallInteger('desired_position');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::table('participant_exams', function (Blueprint $table) {

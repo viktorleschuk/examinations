@@ -22,6 +22,7 @@ class CreateExamsTable extends Migration
                 ->default(false);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

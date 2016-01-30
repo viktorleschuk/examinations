@@ -24,9 +24,9 @@ class CreateController extends Controller
     public function postCreate(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'              => 'required',
-            'description'       => 'required',
-            'time'              => 'required',
+            'name'              => 'required|max:255',
+            'description'       => 'required|max:255',
+            'time'              => 'required|numeric',
             'level'             => 'required'
         ]);
 
@@ -40,7 +40,7 @@ class CreateController extends Controller
         $exam = Exam::create([
             'name'          =>  $request->get('name'),
             'description'   =>  $request->get('description'),
-            'time'          =>  $request->get('time'),
+            'time'          =>  $request->get('time')*60,
             'level'         =>  Exam::getLevelByName($request->get('level'))
         ]);
 

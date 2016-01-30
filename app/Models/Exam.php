@@ -65,4 +65,68 @@ class Exam extends Model
                 return 'hard';
         }
     }
+
+    /**
+     * @return mixed
+     */
+    public static function getPublishedExams()
+    {
+        return self::select()
+            ->where('is_public', 1)
+            ->get();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTotalWeight()
+    {
+        return $this->getAttribute('questions')
+            ->sum('weight');
+    }
+
+    /**
+     * @param Participant $participant
+     * @return bool
+     */
+    public function doesParticipantCompleteExam(Participant $participant)
+    {
+
+        foreach($participant->participantExams as $exam) {
+
+            if($this->getKey() == $exam->getAttribute('exam_id')) {
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param Participant $participant
+     * @param Exam $exam
+     * @return mixed
+     */
+    public function getParticipantExamStatus(Participant $participant, Exam $exam)
+    {
+        return $participant->participantExams
+            ->where('exam_id', $exam->getKey())
+            ->get();
+    }
+
+    public function getLevelName()
+    {
+        return self::getLevelNameByIndex($this->getAttribute('level'));
+    }
+
+    public function getStatusName(ParticipantExam $participantExam)
+    {
+        return ParticipantExam::getStatusByIndex($participantExam->getAttribute('status'));
+    }
+
+    public function getAvailablePosition()
+    {
+        return ParticipantExam::getAvailablePosition();
+    }
 }

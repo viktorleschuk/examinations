@@ -32,6 +32,8 @@ class QuestionController extends Controller
      */
     public function index(Exam $exam)
     {
+        $exam->load('questions', 'questions.answers');
+
         return view('admin.exam.questions', [
             'exam'  => $exam
         ]);

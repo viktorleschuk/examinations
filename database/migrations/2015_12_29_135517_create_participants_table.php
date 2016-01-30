@@ -21,6 +21,7 @@ class CreateParticipantsTable extends Migration
             $table->string('skype_name', 255);
             $table->string('cv_file');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::table('participants', function (Blueprint $table) {

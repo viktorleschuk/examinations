@@ -40,6 +40,10 @@ class User extends Model implements AuthenticatableContract,
         'password', 'remember_token',
     ];
 
+    public function participant()
+    {
+        return $this->hasOne('App\Models\Participant');
+    }
 
     /**
      * @return bool
@@ -65,6 +69,9 @@ class User extends Model implements AuthenticatableContract,
         return $this->getAttribute('first_name') . ' ' . $this->getAttribute('last_name');
     }
 
+    /**
+     * @return mixed
+     */
     public static function getParticipants()
     {
         return self::select()

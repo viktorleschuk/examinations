@@ -20,6 +20,7 @@ class ParticipantsController extends Controller
     public function index()
     {
         $participants = Participant::all();
+        $participants->load('user');
 
         return view('admin.home.participants', [
             'participants'  => $participants,

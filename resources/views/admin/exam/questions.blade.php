@@ -2,6 +2,8 @@
 
 @section('content')
 
+    <noscript><meta http-equiv="refresh" content="0; url=/no-js" /></noscript>
+
     <div class="container" id="container">
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1">

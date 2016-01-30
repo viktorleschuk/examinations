@@ -26,6 +26,7 @@ class CreateParticipantExamsAnswersTable extends Migration
                 ->nullable();
             $table->integer('elapsed_time');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::table('participant_exams_answers', function (Blueprint $table) {
