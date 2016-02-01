@@ -46,6 +46,7 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'getLogout']);
+
     }
 
     /**
@@ -108,7 +109,7 @@ class AuthController extends Controller
      */
     public function getRegister()
     {
-        return view('admin.auth.register');
+        return view('admin.auth.register', ['TITLE' => 'Register']);
     }
 
     /**
@@ -118,7 +119,7 @@ class AuthController extends Controller
      */
     public function getLogin()
     {
-        return view('admin.auth.login');
+        return view('admin.auth.login', ['TITLE' => 'Login']);
     }
 
 

@@ -20,7 +20,7 @@ class CreateParticipantExamsTable extends Migration
             $table->integer('exam_id')
                 ->unsigned();
             $table->smallInteger('status');
-            $table->integer('score')
+            $table->decimal('score')
                 ->nullable();
             $table->integer('elapsed_time')
                 ->nullable();

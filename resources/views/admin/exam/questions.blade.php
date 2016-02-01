@@ -28,14 +28,15 @@
 
                                 @if(count($exam->questions) > 0)
 
-                                    <?php $counter = 1 ?>
 
-                                    @foreach($exam->questions as $question)
+                                    @foreach($exam->questions as $index => $question)
+
+                                        <?php $index++ ?>
 
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h3 class="panel-title">
-                                                    <a href="{{ route('admin.exam.question.view', ['exam' => $exam, 'question' => $question]) }}">Question {{ $counter++ }}</a>
+                                                    <a href="{{ route('admin.exam.question.view', ['exam' => $exam, 'question' => $question]) }}">Question {{ $index }}</a>
                                                     <a class="pull-right" href="{{ route('admin.exam.question.delete', ['exam' => $exam, 'question' => $question]) }}">
                                                         <i class="fa fa-times"></i>
                                                     </a>

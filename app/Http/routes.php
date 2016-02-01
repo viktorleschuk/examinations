@@ -121,6 +121,11 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
             'as'    => 'admin.exams.pending'
         ]);
 
+        get('/exam/{participantExam}/start-check', [
+            'uses'  => 'PendingExamsController@startCheck',
+            'as'    => 'admin.exam.startCheck'
+        ]);
+
         Route::group(['prefix' => 'exam', 'namespace' => 'Exam'], function() {
 
             get('/create', [
@@ -179,8 +184,8 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
             ]);
 
             post('/{exam}/question/{question}/answer/create', [
-                'uses'  =>  'AnswerController@postCreate',
-                'as'    =>  'admin.exam.question.answer.postCreate'
+                'uses'  =>  'AnswerController@store',
+                'as'    =>  'admin.exam.question.answer.store'
             ]);
 
             get('/{exam}/question/{question}/view', [

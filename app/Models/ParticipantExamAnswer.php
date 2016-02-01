@@ -18,7 +18,7 @@ class ParticipantExamAnswer extends Model
      */
     protected $fillable = [
         'participant_exam_id', 'question_id', 'answer_id',
-        'answer_body', 'elapsed_time'
+        'answer_body', 'elapsed_time', 'score'
     ];
 
     /**

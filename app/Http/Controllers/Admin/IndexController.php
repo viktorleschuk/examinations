@@ -11,6 +11,7 @@ class IndexController extends Controller
     public function __construct()
     {
         view()->share('active', 'exams');
+        view()->share('TITLE', 'Exams');
     }
     /**
      * Display a listing of the resource.

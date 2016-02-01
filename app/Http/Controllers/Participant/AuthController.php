@@ -128,7 +128,7 @@ class AuthController extends Controller
      */
     public function getRegister()
     {
-        return view('participant.auth.register', ['countries' =>  Country::all()]);
+        return view('participant.auth.register', ['countries' =>  Country::all(), 'TITLE'   => 'Register']);
     }
 
     /**
@@ -136,7 +136,7 @@ class AuthController extends Controller
      */
     public function getLogin()
     {
-        return view('participant.auth.login');
+        return view('participant.auth.login', ['TITLE'  => 'Login']);
     }
 
     /**

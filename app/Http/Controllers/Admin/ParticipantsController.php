@@ -11,6 +11,7 @@ class ParticipantsController extends Controller
     public function __construct()
     {
         view()->share('active', 'participants');
+        view()->share('TITLE', 'Participants');
     }
     /**
      * Display a listing of the resource.

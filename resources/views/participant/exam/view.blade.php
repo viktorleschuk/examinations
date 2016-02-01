@@ -114,7 +114,7 @@
 @section('scripts')
     <script>
         function checkJQuery() {
-            if (typeof jQuery != 'undefined') {
+            if(typeof jQuery != 'undefined') {
 
                 return true;
             } else {

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class ParticipantExam extends Model
@@ -75,7 +76,7 @@ class ParticipantExam extends Model
     /**
      * @return mixed
      */
-    public function getLevelName()
+    public function getPositionName()
     {
         return array_get(self::getAvailablePosition(), $this->getAttribute('desired_position'));
     }
@@ -109,5 +110,14 @@ class ParticipantExam extends Model
         return self::select()
             ->where('status', self::STATUS_PENDING)
             ->get();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function totalScore()
+    {
+        return $this->getAttribute('participantExamsAnswers')
+            ->sum('score');
     }
 }

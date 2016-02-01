@@ -20,6 +20,14 @@ use Illuminate\Support\Facades\Validator;
 class ProcessController extends Controller
 {
     /**
+     * ProcessController constructor.
+     */
+    public function __construct()
+    {
+        view()->share('TITLE', 'Process');
+    }
+
+    /**
      * @param Request $request
      * @param Exam $exam
      * @return \Illuminate\Http\RedirectResponse
@@ -64,8 +72,11 @@ class ProcessController extends Controller
 
         $data = $participantExam->participantExamsAnswers->lists('question_id');
 
+//        dd($data);
+
         $question = $exam->questions()->getQuery()->whereNotIn('id', $data)->first();
 
+//        dd($question);
         if ($question == null) {
 
             $participantExam->update([
@@ -82,6 +93,7 @@ class ProcessController extends Controller
             $question->load('answers');
         }
 
+//        dd($question);
         return redirect()->route('participant.exam.process.question', [
             'exam'      => $exam,
             'question'  => $question
@@ -104,15 +116,14 @@ class ProcessController extends Controller
                 'question_id'           => $question->getKey()
             ])->first();
 
-            $addTime = $participantExamAnswer == null ? 0 : $participantExamAnswer->getAttribute('elapsed_time');
-
             $exam->load('questions');
+//            dd($question);
 
             return view('participant.exam.process.question', [
                 'exam'      => $exam,
                 'question'  => $question,
                 'time'      => $service->timeLeft(),
-                'addTime'   => $addTime
+                'previous'  => $participantExamAnswer
             ]);
         }
 
@@ -145,9 +156,11 @@ class ProcessController extends Controller
         if ($validator->fails()) {
 
             return redirect()->back()
-                ->withErrors($validator->messages())
-                ->with('addTime', $request->get('time'));
+                ->withErrors($validator->messages());
         }
+        $participantExam = auth()->user()->participant->getParticipantExam($exam);
+        $timeToQuestions = ParticipantExamAnswer::where(['participant_exam_id' => $participantExam->getKey()])->sum('elapsed_time');
+        $elapsedTime = Carbon::now()->diffInSeconds($participantExam->getAttribute('created_at')) - $timeToQuestions + $request->get('addTime');
 
         ParticipantExamAnswer::updateOrCreate(
             [
@@ -161,7 +174,10 @@ class ProcessController extends Controller
                 'answer_body'           => $question->getAttribute('type') == Question::TYPE_TEXT
                     ? $request->get('answer')
                     : null,
-                'elapsed_time'          => $request->get('time'),
+                'score'                 => $question->getAttribute('type') == Question::TYPE_VARIOUS
+                    ? $this->checkVariousQuestion($question, $request->get('answer'))
+                    : null,
+                'elapsed_time'          => $elapsedTime,
             ]);
 
         return $this->uniqueQuestion($exam);
@@ -182,5 +198,15 @@ class ProcessController extends Controller
 
         return redirect()->route('participant.exam.view', ['exam' => $exam])
             ->with('info', 'Time is over! Exam is completed. You will see when admin checked it.');
+    }
+
+    protected function checkVariousQuestion(Question $question, $answer_id)
+    {
+        if ($question->answers()->getQuery()->where('is_correct', true)->first()->getKey() == $answer_id) {
+
+            return $question->getAttribute('weight');
+        }
+
+        return 0;
     }
 }

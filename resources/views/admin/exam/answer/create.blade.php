@@ -72,7 +72,7 @@
 
                                 <div class="col-md-offset-2">
 
-                                    <form class="form-inline" role="form" method="POST" action="{{ route('admin.exam.question.answer.postCreate', ['exam' => $exam, 'question' => $question]) }}">
+                                    <form class="form-inline" role="form" method="POST" action="{{ route('admin.exam.question.answer.store', ['exam' => $exam, 'question' => $question]) }}">
                                         {!! csrf_field() !!}
 
                                         <div class="form-group">

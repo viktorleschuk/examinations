@@ -27,7 +27,7 @@ class AnswerController extends Controller
         ]);
     }
 
-    public function postCreate(Exam $exam, Question $question, Request $request)
+    public function store(Exam $exam, Question $question, Request $request)
     {
         $this->validate($request, [
             'title' => 'required|max:255'

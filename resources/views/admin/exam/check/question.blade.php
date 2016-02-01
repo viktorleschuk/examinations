@@ -1,8 +1,7 @@
-@extends('participant.layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
 
-    <noscript><meta http-equiv="refresh" content="0; url=/no-js" /></noscript>
     <div class="container" id="container">
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1">
@@ -11,10 +10,8 @@
                     <div class="panel-heading">
                         Question
                     </div>
-                    <form onsubmit="this.jquery_enabled.value=checkJQuery();return true;" class="form-horizontal" role="form" method="POST" action="{{ route('participant.exam.handleQuestion', ['exam' => $exam, 'question' => $question]) }}">
+                    <form onsubmit="this.time.value=getTime();this.jquery_enabled.value=checkJQuery();return true;" class="form-horizontal" role="form" method="POST" action="{{ route('participant.exam.handleQuestion', ['exam' => $exam, 'question' => $question]) }}">
                         {!! csrf_field() !!}
-                        <input type="hidden" name="addTime" value="{{ $previous != null ? $previous->getAttribute('elapsed_time') : 0 }}">
-                        <input type="hidden" name="jquery_enabled" value="0">
                         <div class="panel-body">
 
                             @include('participant.partials.errors')
@@ -30,7 +27,7 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="answer">Answer</label>
                                         <div class="col-md-6">
-                                            <textarea name="answer" id="answer" class="form-control" style="resize: vertical" rows="5">{{ old('answer', $previous != null ? $previous->getAttribute('answer_body') : '') }}</textarea>
+                                            <textarea name="answer" id="answer" class="form-control" style="resize: vertical" rows="5">{{ old('answer') }}</textarea>
                                         </div>
                                     </div>
                                 @else
@@ -44,7 +41,7 @@
                                         <label class="col-md-4 control-label" for="answer">Various</label>
                                         <div class="col-md-6">
                                             @foreach($question->answers as $answer)
-                                                <label><input type="radio" name="answer" value="{{ $answer->getKey() }}" <?php if ($previous != null) { echo $previous->getAttribute('answer_id') == $answer->getKey() ? 'checked' : ''; }?>>  {{ $answer->getAttribute('title') }}</label><br>
+                                                <label><input type="radio" name="answer" value="{{ $answer->getKey() }}">  {{ $answer->getAttribute('title') }}</label><br>
                                             @endforeach
                                         </div>
                                     </div>
@@ -79,21 +76,4 @@
 
 @endsection
 
-@section('scripts')
-
-    <script src="{{ asset('assets/js/jquery.plugin.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.countdown.js') }}"></script>
-
-    <script>
-        $(function () {
-            var time = {{ $time }};
-            $('#timer').countdown({until: time, expiryUrl: '{{ route('participant.exam.timeOver', ['exam' => $exam]) }}',
-                layout: '{hn} {hl}, {mn} {ml}, {sn} {sl}'});
-        });
-
-        function checkJQuery() {
-            return (typeof jQuery != 'undefined');
-        }
-    </script>
-@endsection
 

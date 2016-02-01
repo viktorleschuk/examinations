@@ -14,6 +14,7 @@ class PendingExamsController extends Controller
     public function __construct()
     {
         view()->share('active', 'pending');
+        view()->share('TITLE', 'Pending exams');
     }
     /**
      * Display a listing of the resource.
@@ -22,9 +23,17 @@ class PendingExamsController extends Controller
      */
     public function index()
     {
+//        dd(ParticipantExam::getPendingExams());
+        $pendingExam = ParticipantExam::getPendingExams();
+        $pendingExam->load('participant', 'participant.user', 'exam');
+//        dd($pendingExam);
         return view('admin.exam.pending', [
-            'exams' => ParticipantExam::getPendingExams()
+            'exams' => $pendingExam
         ]);
     }
 
+    public function startCheck(ParticipantExam $participantExam)
+    {
+
+    }
 }
