@@ -20,7 +20,7 @@
                             <div class="panel-body">
                                 @include('admin.partials.errors')
 
-                                <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.exam.question.postCreate', ['exam'  =>  $exam]) }}">
+                                <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.exam.question.store', ['exam'  =>  $exam]) }}">
                                     {!! csrf_field() !!}
 
                                     <div class="form-group">
@@ -40,9 +40,10 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="type">Type</label>
                                         <div class="col-md-6">
-                                            <select name="type" id="type" class="form-control">
-                                                <option value="text">Text</option>
-                                                <option value="various">Various</option>
+                                            <select class="form-control" name="type" id="type">
+                                                @foreach(\App\Models\Question::getAvailableTypes() as $value => $name)
+                                                    <option value="{{ $value }}" {{ old('type', 1) == $value ? ' selected' : '' }}>{{ $name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

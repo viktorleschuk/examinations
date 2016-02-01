@@ -106,11 +106,6 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
             'as'    => 'admin.auth.getLogout'
         ]);
 
-        get('/home', [
-            'uses'  => 'HomeController@index',
-            'as'    => 'admin.home.index'
-        ]);
-
         get('/participants', [
             'uses'  => 'ParticipantsController@index',
             'as'    => 'admin.participants.list'
@@ -121,6 +116,11 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
             'as'    => 'admin.exams.index'
         ]);
 
+        get('/exams/pending', [
+            'uses'  => 'PendingExamsController@index',
+            'as'    => 'admin.exams.pending'
+        ]);
+
         Route::group(['prefix' => 'exam', 'namespace' => 'Exam'], function() {
 
             get('/create', [
@@ -129,8 +129,8 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
             ]);
 
             post('/create', [
-               'uses'   => 'CreateController@postCreate',
-                'as'    => 'admin.exam.postCreate'
+               'uses'   => 'CreateController@store',
+                'as'    => 'admin.exam.store'
             ]);
 
             get('/{exam}', [
@@ -154,8 +154,8 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
             ]);
 
             post('/{exam}/question/create', [
-                'uses'  =>  'QuestionController@postCreate',
-                'as'    =>  'admin.exam.question.postCreate'
+                'uses'  =>  'QuestionController@store',
+                'as'    =>  'admin.exam.question.store'
             ]);
 
             get('/{exam}/question/{question}/edit', [

@@ -53,22 +53,36 @@ class ParticipantExam extends Model
     }
 
     /**
-     * @param $index
-     * @return string
+     * @return array
      */
-    public static function getStatusByIndex($index)
+    public static function getAvailableStatus()
     {
-        switch($index) {
-
-            case self::STATUS_IN_PROCESS:
-                return 'In process';
-            case self::STATUS_PENDING:
-                return 'Pending';
-            case self::STATUS_COMPLETED:
-                return 'Completed';
-        }
+        return array(
+            self::STATUS_IN_PROCESS => 'In process',
+            self::STATUS_PENDING    => 'Pending',
+            self::STATUS_COMPLETED  => 'Completed'
+        );
     }
 
+    /**
+     * @return mixed
+     */
+    public function getStatusName()
+    {
+        return array_get(self::getAvailableStatus(), $this->getAttribute('status'));
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLevelName()
+    {
+        return array_get(self::getAvailablePosition(), $this->getAttribute('desired_position'));
+    }
+
+    /**
+     * @return array
+     */
     public static function getAvailablePosition()
     {
         return array(
@@ -78,9 +92,22 @@ class ParticipantExam extends Model
         );
     }
 
+    /**
+     * @return mixed
+     */
     public function getElapsedTime()
     {
         return $this->getAttribute('participantExamsAnswers')
             ->sum('elapsed_time');
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getPendingExams()
+    {
+        return self::select()
+            ->where('status', self::STATUS_PENDING)
+            ->get();
     }
 }

@@ -39,6 +39,17 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label class="col-md-4 control-label" for="type">Type</label>
+                                        <div class="col-md-6">
+                                            <select class="form-control" name="type" id="type">
+                                                @foreach(\App\Models\Question::getAvailableTypes() as $value => $name)
+                                                    <option value="{{ $value }}" {{ $question->getAttribute('type') == $value ? 'selected' : '' }}>{{ $name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
                                         <div class="col-md-6 col-md-offset-4">
                                             <button type="submit" class="btn btn-primary">
                                                 <i class="fa fa-btn fa-pencil"></i>Save

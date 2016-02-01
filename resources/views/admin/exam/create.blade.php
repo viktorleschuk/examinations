@@ -21,7 +21,7 @@
 
                                 @include('admin.partials.errors')
 
-                                <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.exam.postCreate') }}">
+                                <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.exam.store') }}">
                                     {!! csrf_field() !!}
 
                                     <div class="form-group">
@@ -41,17 +41,17 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="time">Time</label>
                                         <div class="col-md-6">
-                                            <input type="number" min="0" class="form-control" name="time" id="time" value="{{ old('time') }}" >
+                                            <input type="number" step="any" min="0" class="form-control" name="time" id="time" value="{{ old('time') }}" >
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="level">Level</label>
                                         <div class="col-md-6">
-                                            <select name="level" id="level" class="form-control">
-                                                <option value="easy">Easy</option>
-                                                <option value="medium">Medium</option>
-                                                <option value="hard">Hard</option>
+                                            <select class="form-control" name="level" id="level">
+                                                @foreach(\App\Models\Exam::getAvailableLevels() as $value => $level)
+                                                    <option value="{{ $value }}" {{ old('level', 1) == $value ? ' selected' : '' }}>{{ $level }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

@@ -32,7 +32,7 @@
                                                     <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $exam['name']) }}" />
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="control-label" for="email">qwe</label>
+                                                    <label class="control-label" for="description">Description</label>
                                                     <textarea name="description" id="description" class="form-control">{{ old('description', $exam['description']) }}</textarea>
                                                 </div>
                                                 <div class="form-group">

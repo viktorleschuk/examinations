@@ -14,8 +14,8 @@ class QuestionController extends Controller
 {
 
     private $questionRules = [
-        'title'     =>  'required',
-        'weight'    =>  'required'
+        'title'     =>  'required|max:255',
+        'weight'    =>  'required',
     ];
 
     /**
@@ -55,7 +55,7 @@ class QuestionController extends Controller
      * @param Exam $exam
      * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function postCreate(Request $request, Exam $exam)
+    public function store(Request $request, Exam $exam)
     {
         $this->validate($request, $this->questionRules);
 
@@ -63,10 +63,9 @@ class QuestionController extends Controller
             'exam_id'   => $exam->getKey(),
             'title'     => $request->get('title'),
             'weight'    => $request->get('weight'),
-            'type'      => Question::getTypeByName($request->get('type'))
+            'type'      => $request->get('type')
         ]);
 
-//TODO message if successfully add question
         return redirect()->route('admin.exam.questions', ['exam' => $exam])
             ->with('success', 'Question successfully added');
     }
@@ -78,6 +77,12 @@ class QuestionController extends Controller
      */
     public function edit(Exam $exam, Question $question)
     {
+        if (!$question->getAttribute('exam_id') == $exam->getKey()) {
+
+            return redirect()->route('admin.exams.index')
+                ->withErrors('This question is not belong to this exam');
+        }
+
         return view('admin.exam.question.edit', [
             'exam'      => $exam,
             'question'  => $question
@@ -92,6 +97,12 @@ class QuestionController extends Controller
      */
     public function delete(Exam $exam, Question $question)
     {
+        if (!$question->getAttribute('exam_id') == $exam->getKey()) {
+
+            return redirect()->back('admin.exams.index')
+                ->withErrors('This question is not belong to this exam');
+        }
+
         $question->delete();
 
         return redirect()->back()
@@ -110,9 +121,10 @@ class QuestionController extends Controller
 
         $question->update([
             'title'     => $request->get('title'),
-            'weight'    => $request->get('weight')
+            'weight'    => $request->get('weight'),
+            'type'      => $request->get('type')
         ]);
-//TODO
+
         return redirect()->route('admin.exam.questions', ['exam' => $exam])
             ->with('success', 'Successfully editing');
     }

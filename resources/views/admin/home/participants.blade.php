@@ -39,7 +39,7 @@
                                                 <td>{{ $participant->getKey() }}</td>
                                                 <td>{{ $participant->user->getAttribute('first_name') }}</td>
                                                 <td>{{ $participant->user->getAttribute('last_name') }}</td>
-                                                <td>{{ $participant->getAttribute('country_id') }}</td>
+                                                <td>{{ $participant->country->getAttribute('name') }}</td>
                                                 <td>{{ $participant->getAttribute('city') }}</td>
                                                 <td>{{ $participant->getAttribute('phone_number') }}</td>
                                                 <td>{{ $participant->getAttribute('skype_name') }}</td>

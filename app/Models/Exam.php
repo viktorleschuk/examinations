@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Exam extends Model
 {
 
-    const LEVEL_EASY    = 1;
-    const LEVEL_MEDIUM  = 2;
-    const LEVEL_HARD    = 3;
+    const LEVEL_JUNIOR    = 1;
+    const LEVEL_MIDDLE  = 2;
+    const LEVEL_SENIOR    = 3;
 
     /**
      * @var string
@@ -34,36 +34,25 @@ class Exam extends Model
         return $this->hasMany('App\Models\Question', 'exam_id', 'id');
     }
 
+
     /**
-     * @param $name
-     * @return int
+     * @return array
      */
-    public static function getLevelByName($name)
+    public static function getAvailableLevels()
     {
-        switch($name) {
-            case 'easy':
-                return self::LEVEL_EASY;
-            case 'medium':
-                return self::LEVEL_MEDIUM;
-            case 'hard':
-                return self::LEVEL_HARD;
-        }
+        return array(
+            self::LEVEL_JUNIOR  => 'Junior',
+            self::LEVEL_MIDDLE  => 'Middle',
+            self::LEVEL_SENIOR  => 'Senior'
+        );
     }
 
     /**
-     * @param $index
-     * @return string
+     * @return mixed
      */
-    public static function getLevelNameByIndex($index)
+    public function getLevelName()
     {
-        switch($index) {
-            case self::LEVEL_EASY:
-                return 'easy';
-            case self::LEVEL_MEDIUM:
-                return 'medium';
-            case self::LEVEL_HARD:
-                return 'hard';
-        }
+        return array_get(self::getAvailableLevels(), $this->getAttribute('level'));
     }
 
     /**
@@ -113,11 +102,6 @@ class Exam extends Model
         return $participant->participantExams
             ->where('exam_id', $exam->getKey())
             ->get();
-    }
-
-    public function getLevelName()
-    {
-        return self::getLevelNameByIndex($this->getAttribute('level'));
     }
 
     public function getStatusName(ParticipantExam $participantExam)

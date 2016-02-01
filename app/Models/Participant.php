@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Exam;
 
 class Participant extends Model
 {
@@ -25,6 +24,11 @@ class Participant extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo('App\Models\Country');
     }
 
     /**
@@ -61,8 +65,7 @@ class Participant extends Model
      */
     public function getExamStatusName(Exam $exam)
     {
-        return ParticipantExam::getStatusByIndex(
-            $this->getParticipantExam($exam)
-            ->getAttribute('status'));
+        return $this->getParticipantExam($exam)
+            ->getStatusName();
     }
 }

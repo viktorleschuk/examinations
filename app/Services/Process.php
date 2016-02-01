@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Exam;
 use Carbon\Carbon;
-use App\Models\Question as QuestionModel;
+use App\Models\Question;
 
 class Process {
 
@@ -29,9 +29,10 @@ class Process {
     }
 
     /**
+     * @param Question $question
      * @return bool
      */
-    public function doesParticipantPassQuestion(QuestionModel $question)
+    public function doesParticipantPassQuestion(Question $question)
     {
         if ($this->participantExam == null || ($this->timeLeft() <= 0) || ($question->getAttribute('exam_id') != $this->exam->getKey())) {
 
@@ -54,6 +55,14 @@ class Process {
      */
     public function timeLeft()
     {
-        return $this->lastTime()->diffInSeconds(Carbon::now());
+        return -$this->lastTime()->diffInSeconds(Carbon::now(), false);
+    }
+
+    /**
+     * @return bool
+     */
+    public function doesParticipantStartPassExam()
+    {
+        return ($this->participantExam == null);
     }
 }

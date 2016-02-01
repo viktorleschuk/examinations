@@ -91,4 +91,12 @@ class Question extends Model
         return $this->hasOne('App\Models\Answer')
             ->where('is_correct' === true);
     }
+
+    public static function getAvailableTypes()
+    {
+        return [
+            self::TYPE_VARIOUS  =>  'Various',
+            self::TYPE_TEXT     =>  'Text'
+        ];
+    }
 }

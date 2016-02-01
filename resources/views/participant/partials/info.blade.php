@@ -1,6 +1,6 @@
 @if(Session::has('info'))
     <div class="alert alert-info">
-        <strong>Success!</strong>
+        <strong>Info!</strong>
         <ul>
             <li>
                 {{ Session::get('info') }}

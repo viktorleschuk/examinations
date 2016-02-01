@@ -40,7 +40,7 @@
                 </button>
 
                         <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ route('admin.home.index') }}">
+                <a class="navbar-brand" href="{{ route('admin.exams.index') }}">
                     Examinations (admin panel)
                 </a>
             </div>
@@ -48,7 +48,7 @@
             <div class="collapse navbar-collapse" id="spark-navbar-collapse">
                         <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ route('admin.home.index') }}">Home</a></li>
+                    <li><a href="{{ route('admin.exams.index') }}">Home</a></li>
                 </ul>
 
                         <!-- Right Side Of Navbar -->

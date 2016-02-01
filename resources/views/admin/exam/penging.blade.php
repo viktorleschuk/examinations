@@ -15,15 +15,9 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Exams
-                                <a title="Create new exam" href="{{ route('admin.exam.create') }}" class="btn btn-default btn-xs pull-right" style="margin-right: 5px">
-                                    + New exam
-                                </a>
+                                Pending exams
                             </div>
                             <div class="panel-body">
-
-                                @include('admin.partials.errors')
-
                                 @if(count($exams) > 0)
                                     <div class="list-group">
                                         @foreach($exams as $exam)
@@ -34,7 +28,7 @@
                                     </div>
                                 @else
                                     <div class="alert alert-info">
-                                        <strong>Info!</strong> No exams
+                                        <strong>Info!</strong> No pending exams
                                     </div>
                                 @endif
                             </div>

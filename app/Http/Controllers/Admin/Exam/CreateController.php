@@ -21,7 +21,7 @@ class CreateController extends Controller
         return view('admin.exam.create');
     }
 
-    public function postCreate(Request $request)
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name'              => 'required|max:255',
@@ -41,7 +41,7 @@ class CreateController extends Controller
             'name'          =>  $request->get('name'),
             'description'   =>  $request->get('description'),
             'time'          =>  $request->get('time')*60,
-            'level'         =>  Exam::getLevelByName($request->get('level'))
+            'level'         =>  $request->get('level')
         ]);
 
         return redirect()->route('admin.exam.view', [

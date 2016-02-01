@@ -13,7 +13,7 @@
                     <div class="panel-body">
                         @include('participant.partials.success')
                         @include('participant.partials.errors')
-                        @include('participant.partials.info')
+                        @include('participant.partials.info ')
                         <dl class="dl-horizontal">
                             <dt>Description</dt>
                             <dd>{{ $exam->getAttribute('description') }}</dd>
@@ -36,7 +36,17 @@
                                         <span class="label label-info">{{ $participant->getParticipnatExam($exam)->getAttribute('score') }}</span>
                                     </dd>
                                 </dl>
-                            @endif
+                            @elseif($participant->getParticipantExam($exam)->getAttribute('status') == \App\Models\ParticipantExam::STATUS_IN_PROCESS)
+
+                                <form method="GET" onsubmit="this.jquery_enabled.value=checkJQuery();return true;" action="{{ route('participant.exam.question', ['exam' => $exam]) }}">
+
+                                    {!! csrf_field() !!}
+                                    <input type="hidden" name="jquery_enabled" value="0">
+                                    <button type="submit" class="btn btn-success">Continue exam</button>
+
+                                </form>
+
+                                @endif
                         @else
                             <dl class="dl-horizontal">
                                 <dt>Time</dt>
@@ -56,9 +66,9 @@
                         <div class="modal fade" id="passExamination">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <form method="POST" onsubmit="this.js_enabled.value=1;return true;" action="{{ route('participant.exam.start', ['exam' => $exam]) }}">
+                                    <form method="POST" onsubmit="this.jquery_enabled.value=checkJQuery();return true;" action="{{ route('participant.exam.start', ['exam' => $exam]) }}">
                                         {!! csrf_field() !!}
-                                        <input type="hidden" name="js_enabled" value="0">
+                                        <input type="hidden" name="jquery_enabled" value="0">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                             <h4 class="modal-title">Pass exam</h4>
@@ -76,8 +86,8 @@
                                                 <div class="form-group">
                                                     <label class="control-label" for="position">Chose desired position:</label>
                                                     <select class="form-control" id="position" name="position">
-                                                        @foreach($exam->getAvailablePosition() as $index => $position)
-                                                            <option value="{{ $index }}">{{ $position }}</option>
+                                                        @foreach(\App\Models\ParticipantExam::getAvailablePosition() as $value => $position)
+                                                            <option value="{{ $value }}" {{ old('position', 1) == $value ? ' selected' : '' }}>{{ $position }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -99,4 +109,18 @@
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+    <script>
+        function checkJQuery() {
+            if (typeof jQuery != 'undefined') {
+
+                return true;
+            } else {
+
+                return false;
+            }
+        }
+    </script>
 @endsection

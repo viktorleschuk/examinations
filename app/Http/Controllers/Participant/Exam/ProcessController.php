@@ -35,14 +35,22 @@ class ProcessController extends Controller
             redirect()->route('participant.errors.no-js');
         }
 
-        ParticipantExam::create([
+        if ((new Process($exam))->doesParticipantStartPassExam()) {
+
+            ParticipantExam::create([
                 'status'            => ParticipantExam::STATUS_IN_PROCESS,
                 'participant_id'    => auth()->user()->participant->getKey(),
                 'exam_id'           => $exam->getKey(),
                 'desired_position'  => $request->get('position'),
             ]);
 
-        return redirect()->route('participant.exam.question', ['exam' => $exam]);
+            return redirect()->route('participant.exam.question', ['exam' => $exam]);
+        } else {
+
+            redirect()->route('participant.exam.view', ['exam' => $exam])
+                ->with('info', sprintf('You can\'t starting passing exam, because status of this exam - %s',
+                    auth()->user()->participant->getParticipantExam($exam)->getStatusName()));
+        }
     }
 
     /**
@@ -87,10 +95,16 @@ class ProcessController extends Controller
      */
     public function getQuestion(Exam $exam, Question $question)
     {
-
         $service = new Process($exam);
 
         if ($service->doesParticipantPassQuestion($question)) {
+
+            $participantExamAnswer = ParticipantExamAnswer::where([
+                'participant_exam_id'   => auth()->user()->participant->getParticipantExam($exam)->getKey(),
+                'question_id'           => $question->getKey()
+            ])->first();
+
+            $addTime = $participantExamAnswer == null ? 0 : $participantExamAnswer->getAttribute('elapsed_time');
 
             $exam->load('questions');
 
@@ -98,7 +112,13 @@ class ProcessController extends Controller
                 'exam'      => $exam,
                 'question'  => $question,
                 'time'      => $service->timeLeft(),
+                'addTime'   => $addTime
             ]);
+        }
+
+        if($service->timeLeft() <= 0) {
+
+            return $this->timeOver($exam);
         }
 
         return view('errors.404');
@@ -117,6 +137,7 @@ class ProcessController extends Controller
 
             return redirect()->route('participant.errors.no-js');
         }
+
         $validator = Validator::make($request->all(), [
             'answer'    => 'required'
         ]);
@@ -128,17 +149,20 @@ class ProcessController extends Controller
                 ->with('addTime', $request->get('time'));
         }
 
-        ParticipantExamAnswer::create([
-            'participant_exam_id'   => auth()->user()->participant->getParticipantExam($exam)->getKey(),
-            'question_id'           => $question->getKey(),
-            'answer_id'             => $question->getAttribute('type') == Question::TYPE_VARIOUS
-                ? $request->get('answer')
-                : null,
-            'answer_body'           => $question->getAttribute('type') == Question::TYPE_TEXT
-                ? $request->get('answer')
-                : null,
-            'elapsed_time'          => $request->get('time'),
-        ]);
+        ParticipantExamAnswer::updateOrCreate(
+            [
+                'question_id'           => $question->getKey(),
+                'participant_exam_id'   => auth()->user()->participant->getParticipantExam($exam)->getKey()
+            ],
+            [
+                'answer_id'             => $question->getAttribute('type') == Question::TYPE_VARIOUS
+                    ? $request->get('answer')
+                    : null,
+                'answer_body'           => $question->getAttribute('type') == Question::TYPE_TEXT
+                    ? $request->get('answer')
+                    : null,
+                'elapsed_time'          => $request->get('time'),
+            ]);
 
         return $this->uniqueQuestion($exam);
     }

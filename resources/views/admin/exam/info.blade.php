@@ -48,7 +48,7 @@
 
                                 <dl class="dl-horizontal">
                                     <dt>Level</dt>
-                                    <dd>{{ App\Models\Exam::getLevelNameByIndex($exam->getAttribute('level')) }}</dd>
+                                    <dd>{{ $exam->getLevelName() }}</dd>
                                 </dl>
 
                                 <dl class="dl-horizontal">

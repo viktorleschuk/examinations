@@ -25,6 +25,8 @@ class CreateParticipantExamsAnswersTable extends Migration
             $table->text('answer_body')
                 ->nullable();
             $table->integer('elapsed_time');
+            $table->integer('score')
+                ->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

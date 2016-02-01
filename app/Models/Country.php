@@ -17,4 +17,9 @@ class Country extends Model
     protected $fillable = [
         'code', 'name'
     ];
+
+    public function participants()
+    {
+        return $this->hasMany('App\Models\Participant');
+    }
 }
