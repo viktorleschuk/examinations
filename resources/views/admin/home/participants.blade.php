@@ -43,7 +43,7 @@
                                                 <td>{{ $participant->getAttribute('city') }}</td>
                                                 <td>{{ $participant->getAttribute('phone_number') }}</td>
                                                 <td>{{ $participant->getAttribute('skype_name') }}</td>
-                                                <td>..</td>
+                                                <td><a href="{{ route('admin.participants.cv', ['participant' => $participant]) }}" target="_blank">download</a></td>
                                             </tr>
 
                                         @endforeach

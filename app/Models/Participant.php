@@ -35,9 +35,9 @@ class Participant extends Model
      * @param $fileName
      * @return string
      */
-    public static function getPathForCV($fileName)
+    public static function getPathForCV()
     {
-        return storage_path(self::CV_FILES_PATH . $fileName);
+        return storage_path(self::CV_FILES_PATH);
     }
 
     /**
@@ -67,5 +67,10 @@ class Participant extends Model
     {
         return $this->getParticipantExam($exam)
             ->getStatusName();
+    }
+
+    public function getFullNameForCV()
+    {
+        return $this->user->getAttribute('first_name') . '_' . $this->user->getAttribute('last_name');
     }
 }

@@ -28,4 +28,12 @@ class ParticipantsController extends Controller
             'active'        => 'participants'
         ]);
     }
+
+    public function downloadCv(Participant $participant)
+    {
+        $path = Participant::getPathForCV() . $participant->getAttribute('cv_file');
+        $ext = pathinfo($path, PATHINFO_EXTENSION);
+        $name = 'cv_file_' . $participant->getFullNameForCV() . '.' . $ext;
+        return response()->download($path, $name);
+    }
 }

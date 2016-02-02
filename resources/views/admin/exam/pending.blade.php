@@ -33,13 +33,13 @@
                                         <tbody>
 
                                         @foreach($exams as $index => $exam)
-                                                <?php $index++ ?>
+                                            <?php $index++ ?>
                                             <tr>
                                                 <td>{{ $index }}</td>
                                                 <td>{{ $exam->exam->getAttribute('name') }}</td>
                                                 <td>{{ $exam->participant->user->getFullName() }}</td>
                                                 <td>{{ $exam->getPositionName() }}</td>
-                                                <td>...</td>
+                                                <td><a href="{{ route('admin.participants.cv', ['participant' => $exam->participant]) }}" target="_blank">download</a></td>
                                             </tr>
 
                                         @endforeach

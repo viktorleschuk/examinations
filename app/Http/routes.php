@@ -111,6 +111,11 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
             'as'    => 'admin.participants.list'
         ]);
 
+        get('/participants/cv/download/{participant}', [
+            'uses'  => 'ParticipantsController@downloadCv',
+            'as'    => 'admin.participants.cv'
+        ]);
+
         get('/exams', [
             'uses'  => 'IndexController@index',
             'as'    => 'admin.exams.index'
@@ -120,6 +125,7 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
             'uses'  => 'PendingExamsController@index',
             'as'    => 'admin.exams.pending'
         ]);
+
 
         get('/exam/{participantExam}/start-check', [
             'uses'  => 'PendingExamsController@startCheck',
