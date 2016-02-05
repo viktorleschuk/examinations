@@ -82,7 +82,6 @@
                                         {!! csrf_field() !!}
 
                                         <div class="form-group">
-                                            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control" id="title" name="title" placeholder="Various">
                                                 <span class="input-group-addon">

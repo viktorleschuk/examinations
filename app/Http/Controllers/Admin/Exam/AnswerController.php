@@ -11,14 +11,25 @@ use App\Models\Answer;
 use App\Http\Requests;
 use App\Models\Exam;
 
-
+/**
+ * Class AnswerController
+ * @package App\Http\Controllers\Admin\Exam
+ */
 class AnswerController extends Controller
 {
+    /**
+     * AnswerController constructor.
+     */
     public function __construct()
     {
         view()->share('active', null);
     }
 
+    /**
+     * @param Exam $exam
+     * @param Question $question
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create(Exam $exam, Question $question)
     {
         return view('admin.exam.answer.create', [
@@ -27,6 +38,12 @@ class AnswerController extends Controller
         ]);
     }
 
+    /**
+     * @param Exam $exam
+     * @param Question $question
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function store(Exam $exam, Question $question, Request $request)
     {
         $this->validate($request, [
@@ -49,6 +66,11 @@ class AnswerController extends Controller
             ->with('success', 'Various successfully added');
     }
 
+    /**
+     * @param Answer $answer
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
     public function delete(Answer $answer)
     {
         $answer->delete();

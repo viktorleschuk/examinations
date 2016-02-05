@@ -86,6 +86,9 @@ class Question extends Model
         return true;
     }
 
+    /**
+     * @return bool
+     */
     public function hasCorrectAnswer()
     {
         if ($this->getAttribute('type') == self::TYPE_VARIOUS) {
@@ -99,6 +102,9 @@ class Question extends Model
 
     }
 
+    /**
+     * @return array
+     */
     public static function getAvailableTypes()
     {
         return [

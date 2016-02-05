@@ -18,6 +18,9 @@ class Country extends Model
         'code', 'name'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function participants()
     {
         return $this->hasMany('App\Models\Participant');

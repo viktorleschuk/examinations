@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 
 class ParticipantsController extends Controller
 {
+    /**
+     * ParticipantsController constructor.
+     */
     public function __construct()
     {
         view()->share('active', 'participants');
@@ -30,6 +33,10 @@ class ParticipantsController extends Controller
         ]);
     }
 
+    /**
+     * @param Participant $participant
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function downloadCv(Participant $participant)
     {
         $path = Participant::getPathForCV() . $participant->getAttribute('cv_file');
@@ -38,6 +45,11 @@ class ParticipantsController extends Controller
         return response()->download($path, $name);
     }
 
+    /**
+     * @param Participant $participant
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
     public function delete(Participant $participant)
     {
         $user = $participant->user;
@@ -47,6 +59,10 @@ class ParticipantsController extends Controller
             ->with('success', 'Participant successfully removed!');
     }
 
+    /**
+     * @param Participant $participant
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit(Participant $participant)
     {
         $participant->load('user');
@@ -58,6 +74,10 @@ class ParticipantsController extends Controller
         ]);
     }
 
+    /**
+     * @param Participant $participant
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function view(Participant $participant)
     {
         return view('admin.participants.view', [
@@ -65,6 +85,11 @@ class ParticipantsController extends Controller
         ]);
     }
 
+    /**
+     * @param Participant $participant
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Participant $participant, Request $request)
     {
         $this->validate($request, [

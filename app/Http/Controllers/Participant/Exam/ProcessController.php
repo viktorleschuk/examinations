@@ -198,7 +198,7 @@ class ProcessController extends Controller
     {
         $participantExam->load('participantExamsAnswers');
 
-        if (!$participantExam->doesExistsTextAnswers()) {
+        if (!$participantExam->doesExistTextAnswers()) {
 
             $participantExam->update([
                 'status'        => ParticipantExam::STATUS_COMPLETED,

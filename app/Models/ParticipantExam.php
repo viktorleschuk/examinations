@@ -124,7 +124,7 @@ class ParticipantExam extends Model
     /**
      * @return bool
      */
-    public function doesExistsTextAnswers()
+    public function doesExistTextAnswers()
     {
         return ($this->participantExamsAnswers()->getQuery()->whereNotNull('answer_body')
             ->count() > 0);

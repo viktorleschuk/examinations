@@ -42,9 +42,7 @@ class AuthController extends Controller
     protected $loginPath = '/login';
 
     /**
-     * Create a new authentication controller instance.
-     *
-     * @return void
+     * AuthController constructor.
      */
     public function __construct()
     {

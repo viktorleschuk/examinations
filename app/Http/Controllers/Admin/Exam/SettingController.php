@@ -10,11 +10,18 @@ use App\Models\Exam;
 
 class SettingController extends Controller
 {
+    /**
+     * SettingController constructor.
+     */
     public function __construct()
     {
         view()->share('active', 'setting');
     }
 
+    /**
+     * @param Exam $exam
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Exam $exam)
     {
         return view('admin.exam.setting', [
