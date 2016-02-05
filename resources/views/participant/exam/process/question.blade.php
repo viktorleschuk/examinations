@@ -13,7 +13,7 @@
                     </div>
                     <form onsubmit="this.jquery_enabled.value=checkJQuery();return true;" class="form-horizontal" role="form" method="POST" action="{{ route('participant.exam.handleQuestion', ['exam' => $exam, 'question' => $question]) }}">
                         {!! csrf_field() !!}
-                        <input type="hidden" name="addTime" value="{{ $previous != null ? $previous->getAttribute('elapsed_time') : 0 }}">
+{{--                        <input type="hidden" name="addTime" value="{{ $previous != null ? $previous->getAttribute('elapsed_time') : 0 }}">--}}
                         <input type="hidden" name="jquery_enabled" value="0">
                         <div class="panel-body">
 
@@ -65,7 +65,7 @@
                                     @foreach($exam->questions as $questionItem)
 
                                         <li class="<?php echo ($questionItem->getKey() == $question->getKey()) ? 'active' : '';?>">
-                                            <a href="{{ route('participant.exam.process.question', ['exam' => $exam, 'question' => $questionItem]) }}">{{ $count++ }}</a>
+                                            <a class="jump" href="{{ route('participant.exam.process.question', ['exam' => $exam, 'question' => $questionItem]) }}">{{ $count++ }}</a>
                                         </li>
 
                                     @endforeach
@@ -96,6 +96,15 @@
         function checkJQuery() {
             return (typeof jQuery != 'undefined');
         }
+
+        $("a.jump").click(function() {
+            $.ajax({
+                type: "GET",
+                url: "{{ route('participant.exam.answer.save-time', ['exam' => $exam, 'question' => $question]) }}"
+            });
+
+            return true;
+        });
     </script>
 @endsection
 

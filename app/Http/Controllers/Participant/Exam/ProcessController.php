@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Participant\Exam;
 
+use App\Models\Answer;
 use App\Models\Exam;
 use App\Http\Requests;
 use App\Models\Question;
@@ -53,6 +54,7 @@ class ProcessController extends Controller
             ]);
 
             return redirect()->route('participant.exam.question', ['exam' => $exam]);
+
         } else {
 
             redirect()->route('participant.exam.view', ['exam' => $exam])
@@ -70,7 +72,16 @@ class ProcessController extends Controller
 
         $participantExam = auth()->user()->participant->getParticipantExam($exam);
 
-        $data = $participantExam->participantExamsAnswers->lists('question_id');
+        $data = $participantExam->participantExamsAnswers()->getQuery()
+            ->where(function($query) {
+                $query->whereNull('answer_body')
+                    ->whereNotNull('answer_id');
+            })
+            ->orWhere(function($query) {
+                $query->whereNull('answer_id')
+                    ->whereNotNull('answer_body');
+            })
+                ->lists('question_id');
 
         $question = $exam->questions()->getQuery()->whereNotIn('id', $data)->first();
 
@@ -107,7 +118,6 @@ class ProcessController extends Controller
             ])->first();
 
             $exam->load('questions');
-//            dd($question);
 
             return view('participant.exam.process.question', [
                 'exam'      => $exam,
@@ -150,9 +160,9 @@ class ProcessController extends Controller
         }
         $participantExam = auth()->user()->participant->getParticipantExam($exam);
         $timeToQuestions = ParticipantExamAnswer::where(['participant_exam_id' => $participantExam->getKey()])->sum('elapsed_time');
-        $elapsedTime = Carbon::now()->diffInSeconds($participantExam->getAttribute('created_at')) - $timeToQuestions + $request->get('addTime');
+        $elapsedTime = Carbon::now()->diffInSeconds($participantExam->getAttribute('created_at')) - $timeToQuestions;
 
-        ParticipantExamAnswer::updateOrCreate(
+        $participantExamAnswer = ParticipantExamAnswer::updateOrCreate(
             [
                 'question_id'           => $question->getKey(),
                 'participant_exam_id'   => auth()->user()->participant->getParticipantExam($exam)->getKey()
@@ -167,8 +177,9 @@ class ProcessController extends Controller
                 'score'                 => $question->getAttribute('type') == Question::TYPE_VARIOUS
                     ? $this->checkVariousQuestion($question, $request->get('answer'))
                     : null,
-                'elapsed_time'          => $elapsedTime,
             ]);
+
+        $participantExamAnswer->increment('elapsed_time', $elapsedTime);
 
         return $this->uniqueQuestion($exam);
     }
@@ -216,5 +227,28 @@ class ProcessController extends Controller
 
         return redirect()->route('participant.exam.view', ['exam' => $participantExam->getAttribute('exam')])
         ->with('info', 'Exam completed! (all question has answers or time over) You will see, when admin checked it. ');
+    }
+
+    public function saveTime(Exam $exam, Question $question)
+    {
+        $participantExam = auth()->user()->participant->getParticipantExam($exam);
+
+        $participantExamAnswer = ParticipantExamAnswer::where([
+            'participant_exam_id'   => $participantExam->getKey(),
+            'question_id'           => $question->getKey()
+        ])->first();
+
+        if ($participantExamAnswer == null) {
+
+            $participantExamAnswer = ParticipantExamAnswer::create([
+                'participant_exam_id'   => $participantExam->getKey(),
+                'question_id'           => $question->getKey(),
+            ]);
+        }
+
+        $timeToQuestions = ParticipantExamAnswer::where(['participant_exam_id' => $participantExam->getKey()])->sum('elapsed_time');
+        $elapsedTime = Carbon::now()->diffInSeconds($participantExam->getAttribute('created_at')) - $timeToQuestions;
+
+        $participantExamAnswer->increment('elapsed_time', $elapsedTime);
     }
 }

@@ -76,6 +76,11 @@ Route::group(['namespace'   => 'Participant'], function() {
                 'uses'  => 'ProcessController@timeOver',
                 'as'    => 'participant.exam.timeOver'
             ]);
+
+            get('/{exam}/q/{question}/save-time', [
+                'uses'  =>  'ProcessController@saveTime',
+                'as'    =>  'participant.exam.answer.save-time'
+            ]);
         });
     });
 
