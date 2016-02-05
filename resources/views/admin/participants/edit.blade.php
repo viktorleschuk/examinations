@@ -50,7 +50,7 @@
                                         <div class="col-md-6">
                                             <select class="form-control" id="country" name="country_id">
                                                 @foreach($countries as $country)
-                                                    <option value="{{ $country->getKey() }}" {{ $participant->country->getKey() == $country['id'] ? 'selected' : '' }}> {{ $country->getAttribute('name') }}</option>
+                                                    <option value="{{ $country->getKey() }}" {{ old('country_id', $participant->country->getKey() == $country['id']) ? 'selected' : '' }}> {{ $country->getAttribute('name') }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
