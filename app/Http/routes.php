@@ -224,6 +224,11 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
                 'as'    =>  'admin.exam.question.answer.store'
             ]);
 
+            get('/{answer}/delete', [
+                'uses'  => 'AnswerController@delete',
+                'as'    => 'admin.exam.question.answer.delete'
+            ]);
+
             get('/{exam}/question/{question}/view', [
                 'uses'  => 'QuestionController@view',
                 'as'    => 'admin.exam.question.view'

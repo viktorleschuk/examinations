@@ -48,4 +48,12 @@ class AnswerController extends Controller
         return redirect()->back()
             ->with('success', 'Various successfully added');
     }
+
+    public function delete(Answer $answer)
+    {
+        $answer->delete();
+
+        return redirect()->back()
+            ->with('success', 'Answer various successfully deleted.');
+    }
 }

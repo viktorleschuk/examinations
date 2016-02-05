@@ -72,8 +72,8 @@ class ParticipantsController extends Controller
             'last_name'     => 'required|max:255',
             'country_id'    => 'required|numeric',
             'email'         => 'required|email|max:255|unique:users,role',
-            'phone_number'  => 'required',
-            'city'          => 'required',
+            'phone_number'  => 'required|max:255',
+            'city'          => 'required|max:255',
             'skype_name'    => 'max:255',
         ]);
 
@@ -87,7 +87,7 @@ class ParticipantsController extends Controller
             'country_id'    => $request->get('country_id'),
             'phone_number'  => $request->get('phone_number'),
             'city'          => $request->get('city'),
-            'skype_name'    => $request->get('scype_name')
+            'skype_name'    => $request->get('skype_name')
         ]);
 
         return redirect()->route('admin.participant.view', ['participant' => $participant])

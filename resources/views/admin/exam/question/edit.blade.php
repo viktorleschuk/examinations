@@ -34,7 +34,7 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="weight">Weight</label>
                                         <div class="col-md-6">
-                                            <input type="number" min="0" class="form-control" name="weight" id="weight" value="{{ old('weight', $question->getAttribute('weight')) }}" >
+                                            <input type="number" min="0" step="0.1" class="form-control" name="weight" id="weight" value="{{ old('weight', $question->getAttribute('weight')) }}" >
                                         </div>
                                     </div>
 

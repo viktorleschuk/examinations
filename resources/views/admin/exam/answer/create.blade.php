@@ -20,6 +20,7 @@
                             <div class="panel-body">
 
                                 @include('admin.partials.errors')
+                                @include('admin.partials.success')
 
                                 <dl class="dl-horizontal">
                                     <dt>Question:</dt>
@@ -42,6 +43,7 @@
                                                         <th>Various</th>
                                                         <th style="text-align: center">Correct</th>
                                                     </tr>
+                                                    <tr></tr>
                                                     </thead>
                                                     <tbody>
 
@@ -54,6 +56,10 @@
                                                                 @else
                                                                     <i class="fa fa-times"></i>
                                                                 @endif
+                                                            </td>
+                                                            <td><a href="{{ route('admin.exam.question.answer.delete', ['answer'    => $various]) }}">
+                                                                    <i class="fa fa-trash-o"></i>
+                                                                </a>
                                                             </td>
                                                         </tr>
 

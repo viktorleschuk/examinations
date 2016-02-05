@@ -90,26 +90,9 @@ class PendingExamsController extends Controller
             return view('errors.404');
         }
 
-        $validator = Validator::make($request->all(), [
-            'score'     => 'required|numeric'
+        $this->validate($request, [
+            'score'     => 'required|numeric|between:0,' . $answer->question->getAttribute('weight')
         ]);
-
-        $score = $request->get('score');
-
-        $error = null;
-
-        if (!($score >= 0 && $score <= $answer->question->getAttribute('weight'))) {
-
-            $error = 'Score must be between interval 0 - question weight.';
-        }
-
-        if ($validator->fails() || $error != null) {
-
-            return redirect()->back()
-                ->withInput($request->input())
-                ->withErrors($validator->messages())
-                ->with('error', $error);
-        }
 
         $answer->update([
              'score'    => $request->get('score')

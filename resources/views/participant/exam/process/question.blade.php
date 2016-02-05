@@ -24,7 +24,7 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label">Question</label>
                                         <div class="col-md-6">
-                                            <p class="form-control-static lead">{{ $question->getAttribute('title') }}</p>
+                                            <p class="form-control-static">{{ $question->getAttribute('title') }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -37,7 +37,7 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label">Question</label>
                                         <div class="col-md-6">
-                                            <p class="form-control-static lead">{{ $question->getAttribute('title') }}</p>
+                                            <p class="form-control-static">{{ $question->getAttribute('title') }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -61,7 +61,7 @@
                         <div class="panel-footer text-center">
                             <nav>
                                 <?php $count = 1 ?>
-                                <ul class="pagination pagination-sm">
+                                <ul class="pagination pagination-sm" style="margin: 0;">
                                     @foreach($exam->questions as $questionItem)
 
                                         <li class="<?php echo ($questionItem->getKey() == $question->getKey()) ? 'active' : '';?>">
