@@ -13,28 +13,29 @@
                         <div class="row"></div>
                         <div class="list-group">
                             @foreach($exams as $exam)
-                                <a href="{{ route('participant.exam.view', ['exam' => $exam]) }}" class="list-group-item" style="height: auto; min-height: 150px">
+                                <a href="{{ route('participant.exam.view', ['exam' => $exam]) }}" class="list-group-item clearfix" style="height: auto; min-height: 100px">
                                     <div class="col-md-7">
                                         <h4 class="list-group-item-heading"> {{ $exam->getAttribute('name') }} </h4>
                                         <p class="list-group-item-text"> {{ $exam->getAttribute('description') }} </p>
                                     </div>
+                                    <br>
                                     <div class="col-md-5 text-center">
                                         @if($exam->doesParticipantCompleteExam($participant))
-                                            <h2>
-                                                <span class="label label-primary">
+                                                Status: <span class="label label-primary">
                                                     {{ $participant->getExamStatusName($exam) }}
                                                 </span>
-                                            </h2>
+                                                <br>
                                             @if($participant->getParticipantExam($exam)->getAttribute('status') == \App\Models\ParticipantExam::STATUS_COMPLETED)
-                                                <h4>
                                                     <span class="label label-info">
-                                                        {{ $participant->getParticipantExam($exam)->getAttribute('score') }}
+                                                       Score: {{ $participant->getParticipantExam($exam)->getAttribute('score') }} / {{ $exam->getTotalWeight() }}
                                                     </span>
-                                                </h4>
+                                                    <br>
                                             @endif
                                         @else
-                                            <h2><span class="label label-primary">Available</span></h2>
-                                            Time: {{ $exam->getAttribute('time')/60 }} minutes <br>
+                                            Status: <span class="label label-primary">Available</span>
+                                            <br>
+                                            <span style="top: 5px;">Time: {{ number_format($exam->getAttribute('time')/60 , 2) }} minutes</span>
+                                            <br>
                                             Level: <span class="label label-info"> {{ strtoupper($exam->getLevelName()) }} </span>
                                         @endif
                                     </div>

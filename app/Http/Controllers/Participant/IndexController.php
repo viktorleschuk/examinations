@@ -14,9 +14,10 @@ class IndexController extends Controller
     public function index()
     {
         $participant = auth()->user()->participant->load('participantExams');
-
+        $exams = Exam::getPublishedExams();
+        $exams->load('questions');
         return view('participant.exam.index', [
-            'exams'         => Exam::getPublishedExams(),
+            'exams'         => $exams,
             'participant'   => $participant,
             'TITLE'         => 'Exams'
         ]);

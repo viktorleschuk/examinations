@@ -116,6 +116,26 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
             'as'    => 'admin.participants.cv'
         ]);
 
+        get('/participant/{participant}/delete', [
+            'uses'  => 'ParticipantsController@delete',
+            'as'    => 'admin.participant.delete'
+        ]);
+
+        get('/participant/{participant}/edit', [
+            'uses'  => 'ParticipantsController@edit',
+            'as'    => 'admin.participant.edit'
+        ]);
+
+        post('/participant/{participant}/update', [
+            'uses'  => 'ParticipantsController@update',
+            'as'    => 'admin.participant.update'
+        ]);
+
+        get('/participant/{participant}', [
+            'uses'  => 'ParticipantsController@view',
+            'as'    => 'admin.participant.view'
+        ]);
+
         get('/exams', [
             'uses'  => 'IndexController@index',
             'as'    => 'admin.exams.index'
@@ -127,9 +147,19 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
         ]);
 
 
-        get('/exam/{participantExam}/start-check', [
-            'uses'  => 'PendingExamsController@startCheck',
+        get('/participantExam/{participantExam}/check', [
+            'uses'  => 'PendingExamsController@check',
             'as'    => 'admin.exam.startCheck'
+        ]);
+
+        get('/participantExam/{participantExam}/answer/{participantExamAnswer}/get', [
+            'uses'  => 'PendingExamsController@getCheckPage',
+            'as'    => 'admin.exam.getCheck'
+        ]);
+
+        post('/participantExam/{participantExam}/answer/{participantExamAnswer}/update', [
+            'uses'  => 'PendingExamsController@setScore',
+            'as'    => 'admin.check.setScore'
         ]);
 
         Route::group(['prefix' => 'exam', 'namespace' => 'Exam'], function() {

@@ -120,4 +120,13 @@ class ParticipantExam extends Model
         return $this->getAttribute('participantExamsAnswers')
             ->sum('score');
     }
+
+    /**
+     * @return bool
+     */
+    public function doesExistsTextAnswers()
+    {
+        return ($this->participantExamsAnswers()->getQuery()->whereNotNull('answer_body')
+            ->count() > 0);
+    }
 }

@@ -17,7 +17,7 @@ class CalculateScore
      */
     public function handle(ParticipantExamAnswer $answer)
     {
-        $participantExam = ParticipantExam::find($answer->getAttribute('participant_exam_id'));
+        $participantExam = $answer->getAttribute('participantExam');
         $participantExam->load('participantExamsAnswers');
         $participantExam->update([
             'score' => $participantExam->totalScore()

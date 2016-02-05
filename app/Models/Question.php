@@ -88,8 +88,15 @@ class Question extends Model
 
     public function hasCorrectAnswer()
     {
-        return $this->hasOne('App\Models\Answer')
-            ->where('is_correct' === true);
+        if ($this->getAttribute('type') == self::TYPE_VARIOUS) {
+
+            return $this->answers()->getQuery()
+                ->where('is_correct', true)
+                ->count() != 0;
+        }
+
+        return true;
+
     }
 
     public static function getAvailableTypes()

@@ -43,7 +43,7 @@
 
                                 <dl class="dl-horizontal">
                                     <dt>Time</dt>
-                                    <dd>{{ $exam->getAttribute('time')/60 }} minutes</dd>
+                                    <dd>{{ number_format($exam->getAttribute('time')/60, 2) }} minutes</dd>
                                 </dl>
 
                                 <dl class="dl-horizontal">

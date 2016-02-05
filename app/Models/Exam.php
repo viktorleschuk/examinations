@@ -70,6 +70,7 @@ class Exam extends Model
      */
     public function getTotalWeight()
     {
+        $this->load('questions');
         return $this->getAttribute('questions')
             ->sum('weight');
     }
@@ -104,13 +105,36 @@ class Exam extends Model
             ->get();
     }
 
+    /**
+     * @param ParticipantExam $participantExam
+     * @return mixed
+     */
     public function getStatusName(ParticipantExam $participantExam)
     {
         return ParticipantExam::getStatusByIndex($participantExam->getAttribute('status'));
     }
 
+    /**
+     * @return array
+     */
     public function getAvailablePosition()
     {
         return ParticipantExam::getAvailablePosition();
+    }
+
+    /**
+     * @return bool
+     */
+    public function validate()
+    {
+        foreach($this->getAttribute('questions') as $question) {
+
+            if (!$question->validate() || !$question->hasCorrectAnswer()) {
+
+                return false;
+            }
+        }
+
+        return true;
     }
 }

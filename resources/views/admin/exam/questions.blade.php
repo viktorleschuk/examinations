@@ -60,9 +60,10 @@
                                                     <dt>Type:</dt>
                                                     <dd>{{ App\Models\Question::getTypeNameByIndex($question->getAttribute('type')) }}
 
-                                                        <hr />
 
-                                                        @if($question->getAttribute('type') == App\Models\Question::TYPE_VARIOUS)
+                                                    @if($question->getAttribute('type') == App\Models\Question::TYPE_VARIOUS)
+
+                                                            <hr />
 
                                                             @if(count($question->answers) > 0)
                                                                 <table class="table table-condensed">
@@ -78,7 +79,8 @@
 
                                                                             <tr>
                                                                                 <td>{{ $various->getAttribute('title') }}</td>
-                                                                                <td align="center">@if($various->getAttribute('is_correct'))
+                                                                                <td align="center">
+                                                                                    @if($various->getAttribute('is_correct'))
                                                                                         <i class="fa fa-check"></i>
                                                                                     @else
                                                                                         <i class="fa fa-times"></i>

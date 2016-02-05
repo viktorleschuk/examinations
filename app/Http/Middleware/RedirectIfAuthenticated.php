@@ -41,7 +41,7 @@ class RedirectIfAuthenticated
         }
 
         if ($this->auth->check() && Auth::user()->isAdmin()) {
-            return redirect(route('admin.home.index'));
+            return redirect(route('admin.exams.index'));
         }
 
         return $next($request);

@@ -31,7 +31,7 @@ class SettingController extends Controller
     {
         $exam->delete();
 
-        return redirect()->route('admin.home.index')
+        return redirect()->route('admin.exams.index')
             ->with('success', 'Exam successfully removed');
     }
 
@@ -41,10 +41,16 @@ class SettingController extends Controller
      */
     public function publish(Exam $exam)
     {
-        if($this->validator($exam) == false) {
+        if (count($exam->questions) == 0) {
 
             return redirect()->back()
-                ->withErrors('There are various-question with no existing 2 option');
+                ->withErrors('No questions in the exam');
+        }
+
+        if (!$exam->validate()) {
+
+            return redirect()->back()
+                ->withErrors('There are various-question with no existing 2 option, or not existing correct answer');
         }
 
         $exam->update([
@@ -67,25 +73,6 @@ class SettingController extends Controller
 
         return redirect()->route('admin.exam.view', ['exam' => $exam])
             ->with('success', 'Successfully unpublished');
-    }
-
-    /**
-     * @param Exam $exam
-     * @return bool
-     */
-    protected function validator(Exam $exam)
-    {
-        $questions = $exam->questions;
-
-        foreach ($questions as $question) {
-
-            if($question->validate() == false) {
-
-                return false;
-            }
-        }
-
-        return true;
     }
 
     /**

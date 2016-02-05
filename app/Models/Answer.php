@@ -23,16 +23,6 @@ class Answer extends Model
         'title', 'is_correct'
     ];
 
-//    /**
-//     * The attributes that should be casted to native types.
-//     *
-//     * @var array
-//     */
-//    protected $casts = [
-//        'question_id'   => 'integer',
-//        'title'         =>  'string',
-//        ''
-//    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

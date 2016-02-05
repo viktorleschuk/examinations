@@ -5,75 +5,80 @@
     <div class="container" id="container">
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1">
+                <div class="row">
 
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        Question
+                    <div class="col-lg-3">
+                        @include('admin.partials.menu')
                     </div>
-                    <form onsubmit="this.time.value=getTime();this.jquery_enabled.value=checkJQuery();return true;" class="form-horizontal" role="form" method="POST" action="{{ route('participant.exam.handleQuestion', ['exam' => $exam, 'question' => $question]) }}">
-                        {!! csrf_field() !!}
-                        <div class="panel-body">
 
-                            @include('participant.partials.errors')
+                    <div class="col-lg-9">
 
-                            <fieldset>
-                            @if($question->getAttribute('type') == \App\Models\Question::TYPE_TEXT)
+                        <div class="panel panel-default">
+                            <div class="panel-heading text-center">
+                                <h4>Check · "{{ $answer->question->exam->getAttribute('name') }}"</h4>
+                            </div>
+                            <div class="panel-body">
+
+                                @include('admin.partials.errors')
+                                @include('admin.partials.error')
+
+                                <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.check.setScore', ['participantExam' => $participantExam, 'participantExamAnswer' => $answer]) }}">
+                                    {!! csrf_field() !!}
+
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label">Question</label>
+                                        <label class="col-md-4 control-label" for="question">Question:</label>
                                         <div class="col-md-6">
-                                            <p class="form-control-static lead">{{ $question->getAttribute('title') }}</p>
+                                            <p class="form-control-static lead">{{ $answer->question->getAttribute('title') }}</p>
                                         </div>
                                     </div>
+
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="answer">Answer</label>
+                                        <label class="col-md-4 control-label" for="answer">Answer:</label>
                                         <div class="col-md-6">
-                                            <textarea name="answer" id="answer" class="form-control" style="resize: vertical" rows="5">{{ old('answer') }}</textarea>
+                                            <textarea rows="5" class="form-control" disabled>{{ $answer->getAttribute('answer_body') }}</textarea>
                                         </div>
                                     </div>
-                                @else
+
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label">Question</label>
+                                        <label class="col-md-4 control-label" for="score">Score</label>
                                         <div class="col-md-6">
-                                            <p class="form-control-static lead">{{ $question->getAttribute('title') }}</p>
+                                            <input type="number" step="0.1" min="0" max="{{ $answer->question->getAttribute('weight') }}" class="form-control" name="score" id="score" value="{{ old('score', $answer->question->getAttribute('score')) }}" >
                                         </div>
                                     </div>
+
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="answer">Various</label>
-                                        <div class="col-md-6">
-                                            @foreach($question->answers as $answer)
-                                                <label><input type="radio" name="answer" value="{{ $answer->getKey() }}">  {{ $answer->getAttribute('title') }}</label><br>
-                                            @endforeach
+                                        <div class="col-md-6 col-md-offset-4">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fa fa-check-circle-o"></i> Next
+                                            </button>
                                         </div>
                                     </div>
-                                @endif
-                            </fieldset>
-                            <div class="label label-warning" id="timer" style="font-size: 23px"></div>
-                            <button type="submit" class="btn btn-primary pull-right">
-                                Next question  <i class="fa fa-btn fa-arrow-right"></i>
-                            </button>
-                            <div class="clearfix"></div>
+
+                                </form>
+
+                            </div>
+
+                            <div class="panel-footer text-center">
+                                <nav>
+                                    <?php $count = 1 ?>
+                                    <ul class="pagination pagination-sm">
+                                        @foreach($answers as $answerItem)
+
+                                            <li class="<?php echo ($answerItem->getKey() == $answer->getKey()) ? 'active' : '';?>">
+                                                <a href="{{ route('admin.exam.getCheck', ['participantExam' => $participantExam, 'participantExamAnswer' => $answerItem]) }}">{{ $count++ }}</a>
+                                            </li>
+
+                                        @endforeach
+                                    </ul>
+                                </nav>
+                            </div>
+
                         </div>
-                        <div class="panel-footer text-center">
-                            <nav>
-                                <?php $count = 1 ?>
-                                <ul class="pagination pagination-sm">
-                                    @foreach($exam->questions as $questionItem)
 
-                                        <li class="<?php echo ($questionItem->getKey() == $question->getKey()) ? 'active' : '';?>">
-                                            <a href="{{ route('participant.exam.process.question', ['exam' => $exam, 'question' => $questionItem]) }}">{{ $count++ }}</a>
-                                        </li>
-
-                                    @endforeach
-                                </ul>
-                            </nav>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
 
 @endsection
-
-

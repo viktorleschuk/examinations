@@ -27,7 +27,7 @@ class CreateController extends Controller
             'name'              => 'required|max:255',
             'description'       => 'required|max:255',
             'time'              => 'required|numeric',
-            'level'             => 'required'
+            'level'             => 'required|in:' . Exam::LEVEL_JUNIOR . ',' . Exam::LEVEL_MIDDLE . ',' . Exam::LEVEL_SENIOR,
         ]);
 
         if ($validator->fails()) {

@@ -28,6 +28,7 @@
                                             <th>Participant</th>
                                             <th>Position</th>
                                             <th>CV file</th>
+                                            <th>Start check</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -40,6 +41,7 @@
                                                 <td>{{ $exam->participant->user->getFullName() }}</td>
                                                 <td>{{ $exam->getPositionName() }}</td>
                                                 <td><a href="{{ route('admin.participants.cv', ['participant' => $exam->participant]) }}" target="_blank">download</a></td>
+                                                <td><a href="{{ route('admin.exam.startCheck', ['participantExam' => $exam]) }}"><i class="fa fa-play"></i></a></td>
                                             </tr>
 
                                         @endforeach

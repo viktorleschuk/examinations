@@ -40,7 +40,7 @@
                                                     <thead>
                                                     <tr>
                                                         <th>Various</th>
-                                                        <th>Correct</th>
+                                                        <th style="text-align: center">Correct</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -76,23 +76,20 @@
                                         {!! csrf_field() !!}
 
                                         <div class="form-group">
-                                            <label class="sr-only" for="title">Title</label>
-                                            <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}" >
-                                        </div>
-
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="1" name="is_correct"> Correct
-                                            </label>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="col-md-6 col-md-offset-4">
-                                                <button type="submit" class="btn btn-primary">
-                                                    <i class="fa fa-btn fa-check"></i>Create various
-                                                </button>
+                                            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="title" name="title" placeholder="Various">
+                                                <span class="input-group-addon">
+                                                    <input type="checkbox" value="1" name="is_correct">
+                                                    Is correct
+                                                </span>
                                             </div>
                                         </div>
+
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fa fa-btn fa-check"></i> Create various
+                                        </button>
+
 
                                     </form>
 
@@ -108,3 +105,26 @@
     </div>
 
 @endsection
+
+{{--<form class="form-horizontal">--}}
+    {{--<fieldset>--}}
+
+        {{--<!-- Form Name -->--}}
+        {{--<legend>Form Name</legend>--}}
+
+        {{--<!-- Appended checkbox -->--}}
+        {{--<div class="form-group">--}}
+            {{--<label class="col-md-4 control-label" for="appendedcheckbox">Appended Checkbox</label>--}}
+            {{--<div class="col-md-4">--}}
+                {{--<div class="input-group">--}}
+                    {{--<input id="appendedcheckbox" name="appendedcheckbox" class="form-control" type="text" placeholder="placeholder">--}}
+	                {{--<span class="input-group-addon">--}}
+                        {{--<input type="checkbox">--}}
+                    {{--</span>--}}
+                {{--</div>--}}
+                {{--<p class="help-block">help</p>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+
+    {{--</fieldset>--}}
+{{--</form>--}}

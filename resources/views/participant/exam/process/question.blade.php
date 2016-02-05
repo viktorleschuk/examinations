@@ -44,7 +44,9 @@
                                         <label class="col-md-4 control-label" for="answer">Various</label>
                                         <div class="col-md-6">
                                             @foreach($question->answers as $answer)
+                                                <div class="radio">
                                                 <label><input type="radio" name="answer" value="{{ $answer->getKey() }}" <?php if ($previous != null) { echo $previous->getAttribute('answer_id') == $answer->getKey() ? 'checked' : ''; }?>>  {{ $answer->getAttribute('title') }}</label><br>
+                                                    </div>
                                             @endforeach
                                         </div>
                                     </div>
@@ -88,7 +90,7 @@
         $(function () {
             var time = {{ $time }};
             $('#timer').countdown({until: time, expiryUrl: '{{ route('participant.exam.timeOver', ['exam' => $exam]) }}',
-                layout: '{hn} {hl}, {mn} {ml}, {sn} {sl}'});
+                layout: '{hn}:{mn}:{sn}'});
         });
 
         function checkJQuery() {

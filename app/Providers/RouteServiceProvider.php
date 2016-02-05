@@ -30,6 +30,7 @@ class RouteServiceProvider extends ServiceProvider
         $router->model('question', 'App\Models\Question');
         $router->model('participantExam', 'App\Models\ParticipantExam');
         $router->model('participant', 'App\Models\Participant');
+        $router->model('participantExamAnswer', 'App\Models\ParticipantExamAnswer');
     }
 
     /**

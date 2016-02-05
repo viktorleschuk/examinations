@@ -15,7 +15,7 @@ class QuestionController extends Controller
 
     private $questionRules = [
         'title'     =>  'required|max:255',
-        'weight'    =>  'required',
+        'weight'    =>  'required|numeric',
     ];
 
     /**

@@ -23,12 +23,13 @@
                             <div class="panel-body">
 
                                 @include('admin.partials.errors')
+                                @include('admin.partials.success')
 
                                 @if(count($exams) > 0)
                                     <div class="list-group">
                                         @foreach($exams as $exam)
 
-                                            <a href="{{ route('admin.exam.view', ['exam' => $exam]) }}" class="list-group-item">{{ $exam->getAttribute('name') }}</a>
+                                            <a href="{{ route('admin.exam.view', ['exam' => $exam]) }}" class="list-group-item">{{ $exam->getAttribute('name') }} <span class="pull-right">{{ $exam->getAttribute('is_public') ? 'Published' : 'Not published' }}</span></a>
 
                                         @endforeach
                                     </div>

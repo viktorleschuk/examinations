@@ -33,7 +33,7 @@
                                 <dl class="dl-horizontal">
                                     <dt>Score</dt>
                                     <dd>
-                                        <span class="label label-info">{{ $participant->getParticipnatExam($exam)->getAttribute('score') }}</span>
+                                        <span class="label label-info">{{ $participant->getParticipantExam($exam)->getAttribute('score') }} out of {{ $exam->getTotalWeight() }}</span>
                                     </dd>
                                 </dl>
                             @elseif($participant->getParticipantExam($exam)->getAttribute('status') == \App\Models\ParticipantExam::STATUS_IN_PROCESS)
@@ -42,16 +42,21 @@
 
                                     {!! csrf_field() !!}
                                     <input type="hidden" name="jquery_enabled" value="0">
-                                    <button type="submit" class="btn btn-success">Continue exam</button>
+                                    <dl class="dl-horizontal">
+                                        <dd>
+                                            <hr>
+                                            <button type="submit" class="btn btn-success">Continue exam</button>
+                                        </dd>
+                                    </dl>
 
                                 </form>
 
-                                @endif
+                            @endif
                         @else
                             <dl class="dl-horizontal">
                                 <dt>Time</dt>
                                 <dd>
-                                    {{ $exam->getAttribute('time')/60 }} minutes
+                                    {{ number_format($exam->getAttribute('time')/60 , 2) }} minutes
                                 </dd>
                             </dl>
                             <dl class="dl-horizontal">
@@ -114,13 +119,7 @@
 @section('scripts')
     <script>
         function checkJQuery() {
-            if(typeof jQuery != 'undefined') {
-
-                return true;
-            } else {
-
-                return false;
-            }
+            return (typeof jQuery != 'undefined');
         }
     </script>
 @endsection

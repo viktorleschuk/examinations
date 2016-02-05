@@ -18,6 +18,9 @@
                                 <h4>Participants</h4>
                             </div>
                             <div class="panel-body">
+
+                                @include('admin.partials.success')
+
                                 <table class="table table-condensed">
                                     <thead>
                                     <tr>
@@ -29,6 +32,9 @@
                                         <th>Phone</th>
                                         <th>Skype</th>
                                         <th>CV file</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -43,7 +49,10 @@
                                                 <td>{{ $participant->getAttribute('city') }}</td>
                                                 <td>{{ $participant->getAttribute('phone_number') }}</td>
                                                 <td>{{ $participant->getAttribute('skype_name') }}</td>
-                                                <td><a href="{{ route('admin.participants.cv', ['participant' => $participant]) }}" target="_blank">download</a></td>
+                                                <td align="center"><a href="{{ route('admin.participants.cv', ['participant' => $participant]) }}" target="_blank"><i class="fa fa-download"></i></a></td>
+                                                <td><a href="{{ route('admin.participant.view', ['participant'  => $participant]) }}"><i class="fa fa-eye"></i></a></td>
+                                                <td><a href="{{ route('admin.participant.edit', ['participant'  => $participant]) }}"><i class="fa fa-cog"></i></a></td>
+                                                <td><a href="{{ route('admin.participant.delete', ['participant' => $participant]) }}"><i class="fa fa-times"></i></a></td>
                                             </tr>
 
                                         @endforeach

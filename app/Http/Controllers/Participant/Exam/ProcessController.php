@@ -72,20 +72,11 @@ class ProcessController extends Controller
 
         $data = $participantExam->participantExamsAnswers->lists('question_id');
 
-//        dd($data);
-
         $question = $exam->questions()->getQuery()->whereNotIn('id', $data)->first();
 
-//        dd($question);
         if ($question == null) {
 
-            $participantExam->update([
-                'status'    => ParticipantExam::STATUS_PENDING,
-                'elapsed_time' => $participantExam->getAttribute('created_at')->diffInSeconds(Carbon::now())
-            ]);
-
-            return redirect()->route('participant.exam.view', ['exam' => $exam])
-                ->with('success', 'Exam is completed. You will see when admin checked it.');
+            return $this->endExam($participantExam, $participantExam->getAttribute('created_at')->diffInSeconds(Carbon::now()));
         }
 
         if ($question->getAttribute('type') == Question::TYPE_VARIOUS) {
@@ -93,7 +84,6 @@ class ProcessController extends Controller
             $question->load('answers');
         }
 
-//        dd($question);
         return redirect()->route('participant.exam.process.question', [
             'exam'      => $exam,
             'question'  => $question
@@ -191,13 +181,7 @@ class ProcessController extends Controller
     {
         $participantExam = auth()->user()->participant->getParticipantExam($exam);
 
-        $participantExam->update([
-            'status'    => ParticipantExam::STATUS_PENDING,
-            'elapsed_time' => $participantExam->getAttribute('created_at')->diffInSeconds(Carbon::now())
-        ]);
-
-        return redirect()->route('participant.exam.view', ['exam' => $exam])
-            ->with('info', 'Time is over! Exam is completed. You will see when admin checked it.');
+        return $this->endExam($participantExam, $exam->getAttribute('time'));
     }
 
     protected function checkVariousQuestion(Question $question, $answer_id)
@@ -208,5 +192,29 @@ class ProcessController extends Controller
         }
 
         return 0;
+    }
+
+    public function endExam(ParticipantExam $participantExam, $time)
+    {
+        $participantExam->load('participantExamsAnswers');
+
+        if (!$participantExam->doesExistsTextAnswers()) {
+
+            $participantExam->update([
+                'status'        => ParticipantExam::STATUS_COMPLETED,
+                'elapsed_time'  => $time
+            ]);
+
+            return redirect()->route('participant.exam.view', ['exam' => $participantExam->getAttribute('exam')])
+                ->with('info', 'Exam completed! (all question has answers or time over)');
+        }
+
+        $participantExam->update([
+            'status'        => ParticipantExam::STATUS_PENDING,
+            'elapsed_time'  => $time
+        ]);
+
+        return redirect()->route('participant.exam.view', ['exam' => $participantExam->getAttribute('exam')])
+        ->with('info', 'Exam completed! (all question has answers or time over) You will see, when admin checked it. ');
     }
 }
