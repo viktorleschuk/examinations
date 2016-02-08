@@ -13,7 +13,6 @@
                     </div>
                     <form onsubmit="this.jquery_enabled.value=checkJQuery();return true;" class="form-horizontal" role="form" method="POST" action="{{ route('participant.exam.handleQuestion', ['exam' => $exam, 'question' => $question]) }}">
                         {!! csrf_field() !!}
-{{--                        <input type="hidden" name="addTime" value="{{ $previous != null ? $previous->getAttribute('elapsed_time') : 0 }}">--}}
                         <input type="hidden" name="jquery_enabled" value="0">
                         <div class="panel-body">
 

@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Participant\Exam;
 
-use App\Models\Answer;
-use App\Models\Exam;
-use App\Http\Requests;
-use App\Models\Question;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use App\Models\ParticipantExam;
-use App\Http\Controllers\Controller;
-use App\Models\ParticipantExamAnswer;
-use App\Services\Process;
 use Illuminate\Support\Facades\Validator;
+use App\Models\ParticipantExamAnswer;
+use App\Http\Controllers\Controller;
+use App\Models\ParticipantExam;
+use Illuminate\Http\Request;
+use App\Services\Process;
+use App\Models\Question;
+use App\Http\Requests;
+use App\Models\Exam;
+use Carbon\Carbon;
 
 /**
  * Class ProcessController

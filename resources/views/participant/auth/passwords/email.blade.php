@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/email') }}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ route('guest.password.email', ['role' => \App\User::ROLE_PARTICIPANT]) }}">
                         {!! csrf_field() !!}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">

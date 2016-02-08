@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Question;
 use App\Models\Exam;
 use Carbon\Carbon;
-use App\Models\Question;
 
 class Process {
 

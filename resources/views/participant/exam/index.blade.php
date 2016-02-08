@@ -10,7 +10,9 @@
                         Available exams
                     </div>
                     <div class="panel-body">
-                        <div class="row"></div>
+
+                        @include('participant.partials.successPa')
+
                         <div class="list-group">
                             @foreach($exams as $exam)
                                 <a href="{{ route('participant.exam.view', ['exam' => $exam]) }}" class="list-group-item clearfix" style="height: auto; min-height: 100px">

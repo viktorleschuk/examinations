@@ -1,0 +1,1 @@
+Click here to reset your password: {{ $role == \App\User::ROLE_ADMIN ? url('admin/password/reset/'.$token) : url('password/reset/'.$token) }}
