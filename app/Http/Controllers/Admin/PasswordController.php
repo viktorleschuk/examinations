@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Http\Controllers\Controller;
 
+/**
+ * Class PasswordController
+ * @package App\Http\Controllers\Admin
+ */
 class PasswordController extends Controller
 {
     /**

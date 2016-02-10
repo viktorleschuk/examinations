@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Exam;
 
+/**
+ * Class ViewController
+ * @package App\Http\Controllers\Participant\Exam
+ */
 class ViewController extends Controller
 {
     /**

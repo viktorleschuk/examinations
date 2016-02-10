@@ -11,7 +11,7 @@
                     </div>
                     <div class="panel-body">
 
-                        @include('participant.partials.successPa')
+                        @include('participant.partials.success')
 
                         <div class="list-group">
                             @foreach($exams as $exam)

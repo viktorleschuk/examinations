@@ -8,6 +8,10 @@ use App\Models\Participant;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
+/**
+ * Class ParticipantsController
+ * @package App\Http\Controllers\Admin
+ */
 class ParticipantsController extends Controller
 {
     /**

@@ -21,6 +21,7 @@ class CreateController extends Controller
     public function __construct()
     {
         view()->share('active', 'create');
+        view()->share('TITLE', 'Exam - create');
     }
 
     /**

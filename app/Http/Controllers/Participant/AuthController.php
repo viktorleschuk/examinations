@@ -12,6 +12,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
+/**
+ * Class AuthController
+ * @package App\Http\Controllers\Participant
+ */
 class AuthController extends Controller
 {
     /*

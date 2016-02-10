@@ -129,4 +129,14 @@ class ParticipantExam extends Model
         return ($this->participantExamsAnswers()->getQuery()->whereNotNull('answer_body')
             ->count() > 0);
     }
+
+    public function doesStatusInProcess()
+    {
+        return $this->getAttribute('status') == self::STATUS_IN_PROCESS;
+    }
+
+    public function doesStatusPending()
+    {
+        return $this->getAttribute('status') == self::STATUS_PENDING;
+    }
 }

@@ -49,8 +49,10 @@
                                         <th>Name</th>
                                         <th>Status</th>
                                         <th>Level</th>
-                                        <th>Time/Elapsed time</th>
-                                        <th>Score/Exam score</th>
+                                        <th>Time</th>
+                                        <th>Elapsed time</th>
+                                        <th>Score</th>
+                                        <th>Exam score</th>
                                         <th>Position</th>
                                     </tr>
                                     </thead>
@@ -64,8 +66,10 @@
                                             <td>{{ $exam->exam->getAttribute('name') }}</td>
                                             <td>{{ $exam->getStatusName() }}</td>
                                             <td>{{ $exam->exam->getLevelName() }}</td>
-                                            <td>{{ number_format($exam->exam->getAttribute('time' ) / 60, 2) }} / {{ number_format($exam->getAttribute('elapsed_time') / 60, 2) }}</td>
-                                            <td>{{ $exam->exam->getTotalWeight() }} / {{ $exam->getAttribute('score') }}</td>
+                                            <td>{{ number_format($exam->exam->getAttribute('time' ) / 60, 2) }}</td>
+                                            <td>{{ $exam->doesStatusInProcess() ? 'In process' : number_format($exam->getAttribute('elapsed_time') / 60, 2) }}</td>
+                                            <td>{{ $exam->exam->getTotalWeight() }}</td>
+                                            <td>{{ ($exam->doesStatusInProcess() || $exam->doesStatusPending()) ? $exam->getStatusName() : $exam->getAttribute('score') }}</td>
                                             <td>{{ $exam->getPositionName() }}</td>
                                         </tr>
 

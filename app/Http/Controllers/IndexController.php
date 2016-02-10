@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
+/**
+ * Class IndexController
+ * @package App\Http\Controllers
+ */
 class IndexController extends Controller
 {
     /**

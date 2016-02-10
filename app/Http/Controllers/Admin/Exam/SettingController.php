@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Exam;
 
+/**
+ * Class SettingController
+ * @package App\Http\Controllers\Admin\Exam
+ */
 class SettingController extends Controller
 {
     /**
@@ -16,6 +20,7 @@ class SettingController extends Controller
     public function __construct()
     {
         view()->share('active', 'setting');
+        view()->share('TITLE', 'Exam (settings)');
     }
 
     /**

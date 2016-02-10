@@ -6,8 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Exam;
 
+/**
+ * Class IndexController
+ * @package App\Http\Controllers\Admin
+ */
 class IndexController extends Controller
 {
+    /**
+     * IndexController constructor.
+     */
     public function __construct()
     {
         view()->share('active', 'exams');

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
+/**
+ * Class PasswordController
+ * @package App\Http\Controllers
+ */
 class PasswordController extends Controller
 {
     /*

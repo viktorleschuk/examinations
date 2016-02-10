@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Exam;
 
+/**
+ * Class ViewController
+ * @package App\Http\Controllers\Admin\Exam
+ */
 class ViewController extends Controller
 {
     /**
@@ -14,6 +18,7 @@ class ViewController extends Controller
     public function __construct()
     {
         view()->share('active', 'information');
+        view()->share('TITLE', 'Information');
     }
 
     /**

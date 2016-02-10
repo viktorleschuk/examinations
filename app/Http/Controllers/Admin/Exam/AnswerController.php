@@ -22,7 +22,8 @@ class AnswerController extends Controller
      */
     public function __construct()
     {
-        view()->share('active', null);
+        view()->share('active', 'questions');
+        view()->share('TITLE', 'Answer - create');
     }
 
     /**

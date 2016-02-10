@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Participant;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Http\Controllers\Controller;
 
+/**
+ * Class PasswordController
+ * @package App\Http\Controllers\Participant
+ */
 class PasswordController extends Controller
 {
     /**

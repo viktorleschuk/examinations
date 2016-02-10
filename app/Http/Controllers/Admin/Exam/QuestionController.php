@@ -9,7 +9,10 @@ use App\Models\Question;
 use App\Http\Requests;
 use App\Models\Exam;
 
-
+/**
+ * Class QuestionController
+ * @package App\Http\Controllers\Admin\Exam
+ */
 class QuestionController extends Controller
 {
 
@@ -24,6 +27,7 @@ class QuestionController extends Controller
     public function __construct()
     {
         view()->share('active', 'questions');
+        view()->share('TITLE', 'Questions');
     }
 
     /**

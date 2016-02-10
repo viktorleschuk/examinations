@@ -157,6 +157,7 @@ class ProcessController extends Controller
             return redirect()->back()
                 ->withErrors($validator->messages());
         }
+
         $participantExam = auth()->user()->participant->getParticipantExam($exam);
         $timeToQuestions = ParticipantExamAnswer::where(['participant_exam_id' => $participantExam->getKey()])->sum('elapsed_time');
         $elapsedTime = Carbon::now()->diffInSeconds($participantExam->getAttribute('created_at')) - $timeToQuestions;
@@ -207,6 +208,11 @@ class ProcessController extends Controller
     public function endExam(ParticipantExam $participantExam, $time)
     {
         $participantExam->load('participantExamsAnswers');
+
+        if ($time == null) {
+
+            $time = 0;
+        }
 
         if (!$participantExam->doesExistTextAnswers()) {
 

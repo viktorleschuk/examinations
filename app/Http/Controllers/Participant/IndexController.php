@@ -6,6 +6,10 @@ use App\Models\Exam;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+/**
+ * Class IndexController
+ * @package App\Http\Controllers\Participant
+ */
 class IndexController extends Controller
 {
     /**

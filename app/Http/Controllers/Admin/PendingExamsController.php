@@ -9,6 +9,10 @@ use App\Models\ParticipantExamAnswer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Class PendingExamsController
+ * @package App\Http\Controllers\Admin
+ */
 class PendingExamsController extends Controller
 {
     /**
