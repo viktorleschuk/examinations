@@ -53,7 +53,7 @@
                             <div class="col-md-6">
                                 <select class="form-control" id="country" name="country_id">
                                     @foreach($countries as $country)
-                                        <option value="{{ $country['id'] }}">{{ $country['name'] }}</option>
+                                        <option value="{{ $country['id'] }}" {{ old('country_id') == $country['id'] ? ' selected' : '' }}>{{ $country['name'] }}</option>
                                     @endforeach
                                 </select>
                             </div>

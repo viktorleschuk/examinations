@@ -63,12 +63,18 @@ class QuestionController extends Controller
     {
         $this->validate($request, $this->questionRules);
 
-        Question::create([
+        $question = Question::create([
             'exam_id'   => $exam->getKey(),
             'title'     => $request->get('title'),
             'weight'    => $request->get('weight'),
             'type'      => $request->get('type')
         ]);
+
+        if ($request->get('type') == Question::TYPE_VARIOUS) {
+
+            return redirect()->route('admin.exam.question.answer.create', ['exam' => $exam, 'question' => $question])
+                ->with('success', 'Question successfully added');
+        }
 
         return redirect()->route('admin.exam.questions', ['exam' => $exam])
             ->with('success', 'Question successfully added');

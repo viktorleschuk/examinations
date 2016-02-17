@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use App\Models\Exam;
 
@@ -30,6 +31,17 @@ class IndexController extends Controller
         return view('admin.exam.index', [
             'exams' => Exam::all()
         ]);
+    }
+
+    public function home()
+    {
+        if (Auth::check() && Auth::user()->isAdmin()) {
+
+            return redirect(route('admin.exams.index'));
+        } else {
+
+            return redirect(route('admin.auth.getLogin'));
+        }
     }
 
 }

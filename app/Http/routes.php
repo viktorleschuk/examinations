@@ -101,18 +101,17 @@ Route::group(['namespace'   => 'Participant'], function() {
 });
 
 Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
-    get('/register', [
-        'uses'  => 'AuthController@getRegister',
-        'as'    => 'admin.auth.getRegister'
+
+    get('/', [
+        'uses'  =>  'IndexController@home',
+        'as'    =>  'admin.index.home'
     ]);
-    post('/register', [
-        'uses'  =>  'AuthController@postRegister',
-        'as'    =>  'admin.auth.postRegister'
-    ]);
+
     get('/login', [
         'uses'  => 'AuthController@getLogin',
         'as'    => 'admin.auth.getLogin'
     ]);
+
     post('/login', [
         'uses'  => 'AuthController@postLogin',
         'as'    => 'admin.auth.postLogin'

@@ -52,13 +52,13 @@
                                                         <tr>
                                                             <td>{{ $various->getAttribute('title') }}</td>
                                                             <td align="center">@if($various->getAttribute('is_correct'))
-                                                                    <i class="fa fa-check"></i>
+                                                                    <i class="fa fa-check text-success"></i>
                                                                 @else
-                                                                    <i class="fa fa-times"></i>
+                                                                    <i class="fa fa-times text-muted"></i>
                                                                 @endif
                                                             </td>
                                                             <td><a href="{{ route('admin.exam.question.answer.delete', ['answer'    => $various]) }}">
-                                                                    <i class="fa fa-trash-o"></i>
+                                                                    <i class="fa fa-trash-o text-danger "></i>
                                                                 </a>
                                                             </td>
                                                         </tr>

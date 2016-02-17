@@ -39,7 +39,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="time">Time</label>
+                                        <label class="col-md-4 control-label" for="time">Time (minutes)</label>
                                         <div class="col-md-6">
                                             <input type="number" step="any" min="0" class="form-control" name="time" id="time" value="{{ old('time') }}" >
                                         </div>
