@@ -36,9 +36,15 @@ Route::group(['namespace'   => 'Participant'], function() {
         'as'    => 'participant.auth.postLogin'
     ]);
 
-    get('password/email', 'PasswordController@getEmail');
+    get('password/email', [
+        'uses'  => 'PasswordController@getEmail',
+        'as'    => 'participant.auth.password.getEmail'
+    ]);
 
-    get('password/reset/{token}', 'PasswordController@getReset');
+    get('password/reset/{token}', [
+        'uses'  => 'PasswordController@getReset',
+        'as'    => 'participant.auth.password.getReset'
+    ]);
 
     Route::group(['middleware'  => 'auth.participant'], function() {
 
@@ -117,9 +123,15 @@ Route::group(['namespace'   => 'Admin', 'prefix'    => 'admin'], function() {
         'as'    => 'admin.auth.postLogin'
     ]);
 
-    get('password/email', 'PasswordController@getEmail');
+    get('password/email', [
+        'uses'  => 'PasswordController@getEmail',
+        'as'    => 'admin.auth.password.getEmail'
+    ]);
 
-    get('password/reset/{token}', 'PasswordController@getReset');
+    get('password/reset/{token}', [
+        'uses'  => 'PasswordController@getReset',
+        'as'    => 'admin.auth.password.getReset'
+    ]);
 
     Route::group(['middleware'  => 'auth.admin'], function() {
 
