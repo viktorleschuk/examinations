@@ -18,9 +18,11 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 Questions
-                                <a title="Add new questions" href="{{ route('admin.exam.question.create', ['exam'  => $exam]) }}" class="btn btn-default btn-xs pull-right" style="margin-right: 5px">
-                                    + New question
-                                </a>
+                                @if(!$exam->getAttribute('is_public'))
+                                    <a title="Add new questions" href="{{ route('admin.exam.question.create', ['exam'  => $exam]) }}" class="btn btn-default btn-xs pull-right" style="margin-right: 5px">
+                                        + New question
+                                    </a>
+                                @endif
                             </div>
                             <div class="panel-body">
 

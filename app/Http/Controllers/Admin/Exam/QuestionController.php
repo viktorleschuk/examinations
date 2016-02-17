@@ -49,6 +49,12 @@ class QuestionController extends Controller
      */
     public function create(Exam $exam)
     {
+        if ($exam->getAttribute('is_public')) {
+
+            return redirect()->back()
+                ->withErrors('The exam is published. Unpublish before creating new question.');
+        }
+
         return view('admin.exam.question.create', [
             'exam'  => $exam
         ]);
